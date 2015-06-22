@@ -17,8 +17,6 @@ Install
 
 Add the following to your MySQL database.
 Note: Make sure to change the uc_ to match your database settings.
--- --------------------------------------------------------
-
 --
 -- Table structure for table `uc_forum_cat`
 --
@@ -34,8 +32,6 @@ CREATE TABLE IF NOT EXISTS `uc_forum_cat` (
   `forum_order_cat` int(11) NOT NULL,
   PRIMARY KEY (`forum_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `uc_forum_posts`
@@ -56,8 +52,6 @@ CREATE TABLE IF NOT EXISTS `uc_forum_posts` (
   `forum_timestamp` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`forum_post_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `uc_forum_posts_replys`
