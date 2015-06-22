@@ -22,15 +22,15 @@ Note: Make sure to change the table prefix uc_ to match your database settings.
 -- Table structure for table `uc_forum_cat`
 --
 
-CREATE TABLE IF NOT EXISTS `uc_forum_cat` (
+REATE TABLE IF NOT EXISTS `uc_forum_cat` (
   `forum_id` int(20) NOT NULL AUTO_INCREMENT COMMENT 'id of form thingy',
-  `forum_name` varchar(255) NOT NULL COMMENT 'name of the full forum',
-  `forum_title` varchar(255) NOT NULL COMMENT 'title of the forum sections',
-  `forum_cat` varchar(255) NOT NULL COMMENT 'title of forum category',
-  `forum_des` text NOT NULL COMMENT 'forum section description',
+  `forum_name` varchar(255) DEFAULT NULL COMMENT 'name of the full forum',
+  `forum_title` varchar(255) DEFAULT NULL COMMENT 'title of the forum sections',
+  `forum_cat` varchar(255) DEFAULT NULL COMMENT 'title of forum category',
+  `forum_des` text COMMENT 'forum section description',
   `forum_perm` int(20) NOT NULL DEFAULT '1' COMMENT 'user permissions',
-  `forum_order_title` int(11) NOT NULL,
-  `forum_order_cat` int(11) NOT NULL,
+  `forum_order_title` int(11) NOT NULL DEFAULT '1',
+  `forum_order_cat` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`forum_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
