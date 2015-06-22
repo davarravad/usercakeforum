@@ -1,4 +1,5 @@
 # usercakeforum
+<pre>
 UserCake compatable forum.  Easy to use and lightweight.  
 
 Compatable with User Cake 2.0.2
@@ -71,3 +72,4 @@ CREATE TABLE IF NOT EXISTS `uc_forum_posts_replys` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 Enjoy!
+</pre>
