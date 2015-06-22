@@ -74,6 +74,7 @@ function forumCleanOrderTitle(){
 		$result->close();
 		//echo " ( $total_rows - $last_row ) ";
 		// Only Clean up the table if it needs it
+		if(empty($last_row)){ $last_row = "0"; }
 		if($total_rows != $last_row){
 			// Will have to come up with an automatic feature for this to work
 			// The goal is to keep in order without skipping any deleted rows
@@ -133,8 +134,8 @@ function forumCleanOrderCat($forum_title){
 			//Disables auto refresh for debug stuff
 			if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 				//Redirects the user
-				global $websiteUrl, $site_forum_title;
-				$form_redir_link = "${websiteUrl}${site_forum_title}/";
+				global $websiteUrl, $site_forum_main;
+				$form_redir_link = "${websiteUrl}${site_forum_main}";
 				// Redirect member to their post
 				header("Location: $form_redir_link");
 				exit;
@@ -150,7 +151,7 @@ function forumCleanOrderCat($forum_title){
 // Anywhere else show both move up or down buttons
 //////////////////////////////////////////////////
 function forumMoveTitleOrder($fot_id){
-	global $mysqli, $db_table_prefix, $site_forum_title, $session_token_num, $debug_website;
+	global $mysqli, $db_table_prefix, $stc_page_sel, $session_token_num, $debug_website;
 	// Check to see if admin or mod wants to move the cat up or down
 	if(isset($_POST['MoveTitleUp'])){ $MoveTitleUp = $_POST['MoveTitleUp']; }else{ $MoveTitleUp = "FALSE"; }
 	if(isset($_POST['MoveTitleDown'])){ $MoveTitleDown = $_POST['MoveTitleDown']; }else{ $MoveTitleDown = "FALSE"; }
@@ -201,8 +202,8 @@ function forumMoveTitleOrder($fot_id){
 					//Disables auto refresh for debug stuff
 					if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 						//Redirects the user
-						global $websiteUrl, $site_forum_title;
-						$form_redir_link = "${websiteUrl}${site_forum_title}/";
+						global $websiteUrl, $site_forum_main;
+						$form_redir_link = "${websiteUrl}${site_forum_main}";
 						// Redirect member to their post
 						header("Location: $form_redir_link");
 						exit;
@@ -246,8 +247,8 @@ function forumMoveTitleOrder($fot_id){
 					//Disables auto refresh for debug stuff
 					if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 						//Redirects the user
-						global $websiteUrl, $site_forum_title;
-						$form_redir_link = "${websiteUrl}${site_forum_title}/";
+						global $websiteUrl, $site_forum_main;
+						$form_redir_link = "${websiteUrl}${site_forum_main}";
 						// Redirect member to their post
 						header("Location: $form_redir_link");
 						exit;
@@ -256,7 +257,7 @@ function forumMoveTitleOrder($fot_id){
 		}
 	}else{
 		// Get highest number listed in title order
-		$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$site_forum_title' GROUP BY `forum_title` ORDER BY `forum_order_title` DESC LIMIT 1 ";
+		$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' GROUP BY `forum_title` ORDER BY `forum_order_title` DESC LIMIT 1 ";
 		$result = $mysqli->query($query);
 		$arr = $result->fetch_all(MYSQLI_BOTH);
 		foreach($arr as $row)
@@ -317,7 +318,7 @@ function forumMoveTitleOrder($fot_id){
 // Allow admin to edit and delete forum Titles
 //////////////////////////////////////////////////
 function forumEditTitle($f_title){
-	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $websiteUrl, $site_forum_title;
+	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $websiteUrl, $site_forum_main;
 	// Form button to edit forum title
 	echo "<form enctype=\"multipart/form-data\" action=\"\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 		// Setup token in form // create multi sessions
@@ -331,7 +332,7 @@ function forumEditTitle($f_title){
 	// Only Admins Can Delete Forum Titles
 	if(userCheckForumAdmin()){
 		// Form button to delete forum title
-		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_title}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 			// Setup token in form // create multi sessions
 			if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
 			form_token();
@@ -372,8 +373,8 @@ function forumEditTitleCheck($f_title){
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $websiteUrl, $site_forum_title;
-					$form_redir_link = "${websiteUrl}${site_forum_title}/";
+					global $websiteUrl, $site_forum_main;
+					$form_redir_link = "${websiteUrl}${site_forum_main}";
 					// Redirect member to their post
 					header("Location: $form_redir_link");
 					exit;
@@ -419,7 +420,7 @@ function forumDisplayUserPerms(){
 	else if(isUserLoggedIn()){ $forum_perm_level = "Member"; }
 	else{ $forum_perm_level = "Visitor"; }
 	// If Admin or Mod Show settings to edit forum
-	echo "<table width='100%' class='content78'><tr><td>";
+	echo "<table width='100%' class='content78' border='0'><tr><td>";
 		echo "Permission Level: $forum_perm_level";
 	echo "</td></tr></table>";
 }
@@ -434,7 +435,7 @@ function forumCreateNewTopic(){
 		// Check is user is creating a new title
 		if(isset($_POST['AdminCreateTitle'])){ $AdminCreateTitle = $_POST['AdminCreateTitle']; }else{ $AdminCreateTitle = "FALSE"; }
 		if(isset($_POST['forum_title_create'])){ $forum_title_create = $_POST['forum_title_create']; }else{ $forum_title_create = ""; }
-		global $mysqli, $websiteUrl, $db_table_prefix, $session_token_num, $site_forum_title, $debug_website;
+		global $mysqli, $websiteUrl, $db_table_prefix, $session_token_num, $stc_page_sel, $debug_website;
 		if($AdminCreateTitle == "TRUE"){
 			//Token validation function
 			if(!is_valid_token()){ 
@@ -443,20 +444,21 @@ function forumCreateNewTopic(){
 				die;
 			}else{
 				// Get highest number listed in title order
-				$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$site_forum_title' GROUP BY `forum_title` ORDER BY `forum_order_title` DESC LIMIT 1 ";
-				$result = $mysqli->query($query);
-				$arr = $result->fetch_all(MYSQLI_BOTH);
-				foreach($arr as $row)
-				{
-					$f_order_title = $row['forum_order_title'];
-					$next_order_number = $f_order_title + 1;
+				$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' GROUP BY `forum_title` ORDER BY `forum_order_title` DESC LIMIT 1 ";
+				if($result = $mysqli->query($query)){
+					$arr = $result->fetch_all(MYSQLI_BOTH);
+					foreach($arr as $row)
+					{
+						$f_order_title = $row['forum_order_title'];
+						$next_order_number = $f_order_title + 1;
+					}
 				}
+				if(empty($next_order_number)){ $next_order_number = "1"; }
 				
 				// Update Database with new title
 				$stmt = $mysqli->prepare("INSERT INTO ".$db_table_prefix."forum_cat SET forum_name=?, forum_title=?, forum_order_title=?");
-				$stmt->bind_param("ssi", $site_forum_title, $forum_title_create, $next_order_number);
+				$stmt->bind_param("ssi", $stc_page_sel, $forum_title_create, $next_order_number);
 				if($stmt->execute()){
-					$stmt->close();
 					
 					//Sends success message to session
 					//Shows user success when they are redirected
@@ -466,20 +468,22 @@ function forumCreateNewTopic(){
 					//Disables auto refresh for debug stuff
 					if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 						//Redirects the user
-						global $websiteUrl, $site_forum_title;
-						$form_redir_link = "${websiteUrl}${site_forum_title}/";
+						global $websiteUrl, $site_forum_main;
+						$form_redir_link = "${websiteUrl}${site_forum_main}";
 						// Redirect member to their post
 						header("Location: $form_redir_link");
 						exit;
 					}
 				}else{
+					printf("Error: %s.\n", $stmt->error);
 					err_message('Oops. There was an error. 54528');
 					die;
 				}
+				$stmt->close();
 			}
 		}else{
 			// Show create title form
-			echo "<table width='100%'><tr><td>";
+			echo "<table width='100%' border='0'><tr><td>";
 				echo "<form enctype=\"multipart/form-data\" action=\"\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 					// Setup token in form // create multi sessions
 					if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
@@ -501,7 +505,7 @@ function forumCreateNewTopic(){
 // Anywhere else show both move up or down buttons
 //////////////////////////////////////////////////
 function forumMoveCatOrder($fot_id,$f_title,$cat_order_id){
-	global $mysqli, $db_table_prefix, $site_forum_title, $session_token_num, $debug_website;
+	global $mysqli, $db_table_prefix, $stc_page_sel, $session_token_num, $debug_website;
 	// Check to see if admin or mod wants to move the cat up or down
 	if(isset($_POST['MoveCatUp'])){ $MoveCatUp = $_POST['MoveCatUp']; }else{ $MoveCatUp = "FALSE"; }
 	if(isset($_POST['MoveCatDown'])){ $MoveCatDown = $_POST['MoveCatDown']; }else{ $MoveCatDown = "FALSE"; }
@@ -554,8 +558,8 @@ function forumMoveCatOrder($fot_id,$f_title,$cat_order_id){
 						//Disables auto refresh for debug stuff
 						if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 							//Redirects the user
-							global $websiteUrl, $site_forum_title;
-							$form_redir_link = "${websiteUrl}${site_forum_title}/";
+							global $websiteUrl, $site_forum_main;
+							$form_redir_link = "${websiteUrl}${site_forum_main}";
 							// Redirect member to their post
 							header("Location: $form_redir_link");
 							exit;
@@ -604,8 +608,8 @@ function forumMoveCatOrder($fot_id,$f_title,$cat_order_id){
 						//Disables auto refresh for debug stuff
 						if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 							//Redirects the user
-							global $websiteUrl, $site_forum_title;
-							$form_redir_link = "${websiteUrl}${site_forum_title}/";
+							global $websiteUrl, $site_forum_main;
+							$form_redir_link = "${websiteUrl}${site_forum_main}";
 							// Redirect member to their post
 							header("Location: $form_redir_link");
 							exit;
@@ -618,7 +622,7 @@ function forumMoveCatOrder($fot_id,$f_title,$cat_order_id){
 		}
 	}else{
 		// Get highest number listed in cat order
-		$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$site_forum_title' AND `forum_title`='$f_title' ORDER BY `forum_order_cat` DESC LIMIT 1";
+		$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' AND `forum_title`='$f_title' ORDER BY `forum_order_cat` DESC LIMIT 1";
 		$result = $mysqli->query($query);
 		$arr = $result->fetch_all(MYSQLI_BOTH);
 		foreach($arr as $row)
@@ -691,7 +695,7 @@ function forumCatNew($f_title){
 		if(isset($_POST['forum_cat_create'])){ $forum_cat_create = $_POST['forum_cat_create']; }else{ $forum_cat_create = ""; }
 		if(isset($_POST['forum_des_create'])){ $forum_des_create = $_POST['forum_des_create']; }else{ $forum_des_create = ""; }
 		if(isset($_POST['forum_title'])){ $forum_title = $_POST['forum_title']; }else{ $forum_title = ""; }
-		global $mysqli, $websiteUrl, $db_table_prefix, $session_token_num, $site_forum_title, $debug_website;
+		global $mysqli, $websiteUrl, $db_table_prefix, $session_token_num, $stc_page_sel, $debug_website;
 		if($AdminCreateCat == "TRUE"){
 			//Token validation function
 			if(!is_valid_token()){ 
@@ -701,7 +705,7 @@ function forumCatNew($f_title){
 			}else{
 				// Check to see if this is the first forum cat submitted to the forum title
 				// If so then update the existing row for the title
-				$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$site_forum_title' AND `forum_title`='$forum_title' AND forum_cat<>'' ";
+				$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' AND `forum_title`='$forum_title' AND forum_cat<>'' ";
 				if ($stmt = $mysqli->prepare($query)) {
 					$stmt->execute();
 					$stmt->store_result();
@@ -715,13 +719,13 @@ function forumCatNew($f_title){
 					// Update Database with new cat
 					$number_one = "1";
 					$stmt = $mysqli->prepare("UPDATE ".$db_table_prefix."forum_cat SET forum_order_cat=?, forum_cat=?, forum_des=? WHERE forum_name=? AND forum_title=?");
-					$stmt->bind_param("issss", $number_one, $forum_cat_create, $forum_des_create, $site_forum_title, $forum_title);
+					$stmt->bind_param("issss", $number_one, $forum_cat_create, $forum_des_create, $stc_page_sel, $forum_title);
 					$stmt->execute();
 					$stmt->close();
 				}else{
 					// Create a new title row
 					// Get highest number listed in cat order
-					$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$site_forum_title' AND `forum_title`='$forum_title' GROUP BY `forum_title` ORDER BY `forum_order_cat` DESC LIMIT 1 ";
+					$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' AND `forum_title`='$forum_title' GROUP BY `forum_title` ORDER BY `forum_order_cat` DESC LIMIT 1 ";
 					$result = $mysqli->query($query);
 					$arr = $result->fetch_all(MYSQLI_BOTH);
 					foreach($arr as $row)
@@ -732,7 +736,7 @@ function forumCatNew($f_title){
 					
 					// Update Database with new cat
 					$stmt = $mysqli->prepare("INSERT INTO ".$db_table_prefix."forum_cat SET forum_name=?, forum_title=?, forum_order_cat=?, forum_cat=?, forum_des=?");
-					$stmt->bind_param("ssiss", $site_forum_title, $forum_title, $next_order_number, $forum_cat_create, $forum_des_create);
+					$stmt->bind_param("ssiss", $stc_page_sel, $forum_title, $next_order_number, $forum_cat_create, $forum_des_create);
 					$stmt->execute();
 					$stmt->close();
 				}
@@ -745,17 +749,17 @@ function forumCatNew($f_title){
 					//Disables auto refresh for debug stuff
 					if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 						//Redirects the user
-						global $websiteUrl, $site_forum_title;
-						$form_redir_link = "${websiteUrl}${site_forum_title}/";
+						global $websiteUrl, $site_forum_main;
+						$form_redir_link = "${websiteUrl}${site_forum_main}";
 						// Redirect member to their post
-						//header("Location: $form_redir_link");
+						header("Location: $form_redir_link");
 						exit;
 					}
 
 			}
 		}else{
 			// Show create cat form
-			echo "<table width='100%'><tr><td>";
+			echo "<table width='100%' border='0'><tr><td>";
 				echo "<form enctype=\"multipart/form-data\" action=\"\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 					// Setup token in form // create multi sessions
 					if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
@@ -776,7 +780,7 @@ function forumCatNew($f_title){
 // Allow admin to edit forum cats
 //////////////////////////////////////////////////
 function forumEditCatCheck($f_cat,$f_des,$f_id2){
-	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $debug_website, $websiteUrl, $site_forum_title;
+	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $debug_website, $websiteUrl, $site_forum_main;
 	// Check to see if mod is updating a forum cat
 	if(isset($_POST['AdminEditCat'])){ $AdminEditCat = $_POST['AdminEditCat']; }else{ $AdminEditCat = "FALSE"; }
 	if(isset($_POST['forum_cat_old'])){ $forum_cat_old = $_POST['forum_cat_old']; }else{ $forum_cat_old = ""; }
@@ -806,7 +810,7 @@ function forumEditCatCheck($f_cat,$f_des,$f_id2){
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
 					global $websiteUrl, $site_forum_cat;
-					$form_redir_link = "${websiteUrl}${site_forum_title}/";
+					$form_redir_link = "${websiteUrl}${site_forum_main}";
 					// Redirect member to their post
 					header("Location: $form_redir_link");
 					exit;
@@ -843,7 +847,7 @@ function forumEditCatCheck($f_cat,$f_des,$f_id2){
 		else
 		{
 			global $websiteUrl, $site_forum_cat;
-			echo "<h3><a href='${websiteUrl}${site_forum_title}/forum_display/$f_cat/$f_id2/' title='$f_cat' ALT='$f_cat'>$f_cat</a></h3>";
+			echo "<h3><a href='${websiteUrl}${site_forum_main}?1=forum_display&2=$f_cat&3$f_id2/' title='$f_cat' ALT='$f_cat'>$f_cat</a></h3>";
 			echo " - $f_des";
 		}
 	}
@@ -853,7 +857,7 @@ function forumEditCatCheck($f_cat,$f_des,$f_id2){
 // Allow admin to edit and delete forum Cats
 //////////////////////////////////////////////////
 function forumEditCat($f_cat,$f_des,$f_id2){
-	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $websiteUrl, $site_forum_title;
+	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $websiteUrl, $site_forum_main;
 	// Form button to edit forum cat
 	echo "<form enctype=\"multipart/form-data\" action=\"\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 		// Setup token in form // create multi sessions
@@ -868,7 +872,7 @@ function forumEditCat($f_cat,$f_des,$f_id2){
 	// Only Admins Can Delete Forum Cats
 	if(userCheckForumAdmin()){
 		// Form button to delete forum cat
-		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_title}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 			// Setup token in form // create multi sessions
 			if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
 			form_token();

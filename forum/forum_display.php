@@ -5,7 +5,7 @@
 	
 	// Check database for sections
 	
-	global $mysqli, $site_url_link, $site_forum_title, $db_table_prefix, $websiteName;
+	global $mysqli, $site_url_link, $site_forum_title, $db_table_prefix, $websiteName, $site_forum_main;
 
 	// Get all Categories from database
 	$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_cat`='$load_cat' LIMIT 1";
@@ -31,8 +31,8 @@
 		
 		// Display Link of where we are at on the forum
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td>";
-			echo "<a href='${site_url_link}${site_forum_title}/'>Forum Home</a> / ";
-			echo "<a href='${site_url_link}${site_forum_title}/forum_display/$f_cat/$f_id/'>$f_cat</a>";
+			echo "<a href='${site_url_link}${site_forum_main}/'>Forum Home</a> / ";
+			echo "<a href='${site_url_link}${site_forum_main}/forum_display/$f_cat/$f_id/'>$f_cat</a>";
 		echo "</td></tr></table>";
 		
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=hr2>";
@@ -141,13 +141,13 @@
 						echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='left'>";
 							//echo "($tstamp)"; // Test timestamp
 							echo "<strong><font size='2'>";
-							echo "<a href='${site_url_link}${site_forum_title}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
+							echo "<a href='${site_url_link}${site_forum_main}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 							echo "</font></strong>";
 							echo "<br>";
 							echo "&nbsp; Created by <a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> - ";
 							//Display how long ago this was posted
 							$timestart = "$f_p_timestamp";  //Time of post
-							require_once "models/timediff.inc";
+							require_once "models/timediff.php";
 							echo " <font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 							//echo "($f_p_timestamp)"; // Test timestamp
 				
@@ -180,7 +180,7 @@
 									
 									//Display how long ago this was posted
 									$timestart = "$rp_timestamp2";  //Time of post
-									require_once "models/timediff.inc";
+									require_once "models/timediff.php";
 									echo " Last Reply By <a href='${site_url_link}member/$rp_user_id2/'>$rp_user_name2</a> <font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 									//echo "($rp_timestamp2)"; // Test timestamp
 									unset($timestart, $rp_timestamp2);
@@ -279,7 +279,7 @@
 			
 		echo "<br>";
 		if(isUserLoggedIn()){
-			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_title}/new_topic/${f_id}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
+			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}?1=new_topic&2=${f_id}\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
 				
 				// create multi sessions
 				if(isset($session_token_num)){

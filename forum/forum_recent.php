@@ -90,12 +90,12 @@
 								//echo "($tstamp)"; // Test timestamp
 								echo "<a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> created.. <br>";
 								echo "<strong>";
-								echo "<a href='${site_url_link}${site_forum_title}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
+								echo "<a href='${site_url_link}${site_forum_main}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 								echo "</strong>";
 								echo "<br>";
 								//Display how long ago this was posted
 								$timestart = "$f_p_timestamp";  //Time of post
-								require_once "models/timediff.inc";
+								require_once "models/timediff.php";
 								echo " <font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 								//echo "($f_p_timestamp)"; // Test timestamp					
 							echo "</td></tr></table>";
@@ -108,11 +108,11 @@
 								//echo "($tstamp)"; // Test timestamp
 								echo "<a href='${site_url_link}member/$rp_user_id2/'>$rp_user_name2</a> posted on.. <br>";
 								echo "<strong>";
-								echo "<a href='${site_url_link}${site_forum_title}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
+								echo "<a href='${site_url_link}${site_forum_main}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 								echo "</strong>";
 								//Display how long ago this was posted
 								$timestart = "$rp_timestamp2";  //Time of post
-								require_once "models/timediff.inc";
+								require_once "models/timediff.php";
 								echo "<br><font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 								//echo "($rp_timestamp2)"; // Test timestamp
 								unset($timestart, $rp_timestamp2);

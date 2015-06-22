@@ -97,8 +97,8 @@
 		
 		// Display Link of where we are at on the forum
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td>";
-			echo "<a href='${site_url_link}${site_forum_title}/'>Forum Home</a> / ";
-			echo "<a href='${site_url_link}${site_forum_title}/forum_display/$f_cat/$f_id/'>$f_cat</a> / ";
+			echo "<a href='${site_url_link}${site_forum_main}/'>Forum Home</a> / ";
+			echo "<a href='${site_url_link}${site_forum_main}/forum_display/$f_cat/$f_id/'>$f_cat</a> / ";
 			echo "<a href=''>$f_p_title</a>";
 		echo "</td></tr></table>";
 		
@@ -110,7 +110,7 @@
 				// Show user main pic
 				global $site_dir, $userIdme;
 				$ID02 = $f_p_user_id;
-				require('pages/forum/userimage_small.inc');
+				require('pages/forum/userimage_small.php');
 				echo "$sw_user_sweeted_pic <br><a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> ";
 
 				//Show user's membership status
@@ -119,7 +119,7 @@
 				
 				// Display how long ago this was posted
 				$timestart = "$f_p_timestamp";  //Time of post
-				require_once "models/timediff.inc";
+				require_once "models/timediff.php";
 				echo "<br><font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 				echo "<br>";
 			echo "</td></tr></table>";
@@ -145,7 +145,7 @@
 				if($f_p_edit_date != NULL){
 					// Display how long ago this was posted
 					$timestart = "$f_p_edit_date";  //Time of post
-					require_once "models/timediff.inc";
+					require_once "models/timediff.php";
 					echo "<font color=red>Edited</font><br><font color=red> " . dateDiff("now", "$timestart", 1) . " ago</font> <br><br>";
 				}
 
@@ -155,10 +155,10 @@
 				$sweet_location = "forum_posts"; //Location on site where sweet is
 				$sweet_id = "$f_p_id";  //Post Id number
 				$sweet_userid = "$userIdme";  //User's Id
-				$sweet_url = "${site_url_link}${site_forum_title}/display_topic/${f_p_id}/";
+				$sweet_url = "${site_url_link}${site_forum_main}/display_topic/${f_p_id}/";
 				$sweet_owner_userid = "$f_p_user_id";  //Post owners userid
 				$sweet_sec_id = $f_p_id; //Main topic id
-				require "models/sweets.inc";
+				require "models/sweets.php";
 				//End Sweet 
 					
 					
@@ -169,7 +169,7 @@
 
 						echo "</td></tr><tr><td align='center' valign='bottom'><br>";
 					
-							echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_title}/new_topic/${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+							echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}?1=new_topic&2=${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 								
 								//Setup token in form
 								// create multi sessions
@@ -359,7 +359,7 @@
 							// Show user main pic
 							global $site_dir;
 							$ID02 = $rf_p_user_id;
-							require('pages/forum/userimage_small.inc');
+							require('pages/forum/userimage_small.php');
 							echo "$sw_user_sweeted_pic <br><a href='${site_url_link}member/$rf_p_user_id/'>$rf_p_user_name</a> ";
 
 							//Show user's membership status
@@ -368,7 +368,7 @@
 							
 							// Display how long ago this was posted
 							$timestart = "$rf_p_timestamp";  //Time of post
-							require_once "models/timediff.inc";
+							require_once "models/timediff.php";
 							echo "<br><font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 													
 						echo "</td></tr></table>";
@@ -387,7 +387,7 @@
 							if($rf_p_edit_date != NULL){
 								// Display how long ago this was posted
 								$timestart = "$rf_p_edit_date";  //Time of post
-								require_once "models/timediff.inc";
+								require_once "models/timediff.php";
 								echo "<font color=red>Edited</font><br><font color=red> " . dateDiff("now", "$timestart", 1) . " ago</font> <br><br>";
 							}
 
@@ -398,10 +398,10 @@
 							$sweet_location = "forum_posts_replys"; //Location on site where sweet is
 							$sweet_id = "$rf_p_main_id";  //Post Id number
 							$sweet_userid = "$userIdme";  //User's Id
-							$sweet_url = "${site_url_link}${site_forum_title}/display_topic/${f_p_id}/?pnum=${pnum}#topicreply${rf_p_main_id}";
+							$sweet_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${f_p_id}&pnum=${pnum}#topicreply${rf_p_main_id}";
 							$sweet_owner_userid = "$rf_p_user_id";  //Post owners userid
 							$sweet_sec_id = $f_p_id; //Main topic id
-							require "models/sweets.inc";
+							require "models/sweets.php";
 							//End Sweet 
 								
 								
@@ -412,7 +412,7 @@
 
 									echo "</td></tr><tr><td align='center' valign='bottom'><br>";
 								
-										echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_title}/new_topic/${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+										echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}?1=new_topic&2=${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 											
 											//Setup token in form
 											// create multi sessions
@@ -528,7 +528,7 @@
 		} // End of sql resutls check
 		
 		// Display reply textarea
-		require("pages/forum/reply_topic.inc");
+		require("pages/forum/reply_topic.php");
 		
 		// Display message that tells current user if they are subscribed to the current topic
 		if($usr_email_subcribe == "NO"){
@@ -537,7 +537,7 @@
 		if($usr_email_subcribe == "YES"){
 			echo "You are subscribed to receive E-Mail notifications on this topic.";
 			
-			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_title}/save_topic/${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
+			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}&1=save_topic&2=${f_p_id_cat}\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
 				
 				// create multi sessions
 				if(isset($session_token_num)){
@@ -562,9 +562,9 @@
 		$view_location = "diy"; //Location on site where sweet is
 		$view_id = "$f_p_id";  //Post Id number
 		$view_userid = $_SERVER['REMOTE_ADDR'];  //User's Id
-		$view_url = "${site_url_link}${site_forum_title}/display_topic/${f_p_id}/";
+		$view_url = "${site_url_link}${site_forum_main}/display_topic/${f_p_id}/";
 		$view_owner_userid = "$userIdme";  //Post owners userid
-		require "models/views.inc";
+		require "models/views.php";
 		//End View 
 		
 		// Run Footer of page func

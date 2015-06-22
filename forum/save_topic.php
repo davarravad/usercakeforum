@@ -63,7 +63,7 @@ if(isUserLoggedIn())
 				//echo $stmt->error;
 				
 				$stmt->close();	
-				$redir_link_url = "${site_url_link}${site_forum_title}/display_topic/${newId}/";
+				$redir_link_url = "${site_url_link}${site_forum_main}/display_topic/${newId}/";
 				
 				//Sends success message to session
 				//Shows user success when they are redirected
@@ -93,7 +93,7 @@ if(isUserLoggedIn())
 				//echo $stmt->error;
 				
 				$stmt->close();	
-				$redir_link_url = "${site_url_link}${site_forum_title}/display_topic/${forum_post_id}/";
+				$redir_link_url = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/";
 
 				//Sends success message to session
 				//Shows user success when they are redirected
@@ -146,7 +146,7 @@ if(isUserLoggedIn())
 				$success_msg = "You Have Successfully Created a Topic Reply!";
 				$_SESSION['success_msg'] = $success_msg;
 				
-				$redir_link_url = "${site_url_link}${site_forum_title}/display_topic/${forum_post_id}/$setup_pnum";
+				$redir_link_url = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/$setup_pnum";
 				
 				//Update all current user's email sub status if any for this topic
 				//forum_posts database
@@ -277,7 +277,7 @@ if(isUserLoggedIn())
 									$username = "$f_cur_user_name";
 									
 									//Mail file that setup the email and sends it based on input above
-									require "models/mail.inc";
+									require "models/mail.php";
 							
 							//End of mail
 							
@@ -327,7 +327,7 @@ if(isUserLoggedIn())
 				}
 				
 				$stmt->close();	
-				$redir_link_url = "${site_url_link}${site_forum_title}/display_topic/${forum_post_id}/${setup_pnum}";
+				$redir_link_url = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/${setup_pnum}";
 				
 				//Sends success message to session
 				//Shows user success when they are redirected
@@ -364,7 +364,7 @@ if(isUserLoggedIn())
 				//echo $stmt->error;
 				$stmt->close();	
 				
-				$redir_link_url = "${site_url_link}${site_forum_title}/display_topic/${forum_post_id}/$setup_pnum";
+				$redir_link_url = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/$setup_pnum";
 				
 				//Sends success message to session
 				//Shows user success when they are redirected

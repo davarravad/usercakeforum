@@ -13,7 +13,7 @@ if(isUserLoggedIn())
 					// Show user main pic
 					global $site_dir;
 					$ID02 = $userIdme;
-					require('pages/forum/userimage_small.inc');
+					require('pages/forum/userimage_small.php');
 					$get_user_name_323 = get_user_name_2($userIdme);
 					echo "$sw_user_sweeted_pic <br><a href='${site_url_link}member/$userIdme/'>$get_user_name_323</a> ";
 
@@ -25,7 +25,7 @@ if(isUserLoggedIn())
 				echo "</td></tr></table>";
 			echo "</td><td class='content78' valign='top'>";
 			
-			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_title}/save_topic/${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
+			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}/save_topic/${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
 				
 				// create multi sessions
 				if(isset($session_token_num)){

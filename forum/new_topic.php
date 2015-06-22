@@ -56,8 +56,8 @@ if(isUserLoggedIn())
 
 					// Display Link of where we are at on the forum
 					echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td>";
-						echo "<a href='${site_url_link}${site_forum_title}/'>Forum Home</a> / ";
-						echo "<a href='${site_url_link}${site_forum_title}/forum_display/$f_cat/$f_id/'>$f_cat</a>";
+						echo "<a href='${site_url_link}${site_forum_main}/'>Forum Home</a> / ";
+						echo "<a href='${site_url_link}${site_forum_main}/forum_display/$f_cat/$f_id/'>$f_cat</a>";
 					echo "</td></tr></table>";
 				}
 			
@@ -81,7 +81,7 @@ if(isUserLoggedIn())
 					//echo " ($owner_uid-$userIdme) ";
 					
 					if($owner_uid != $userIdme){
-						$redir_link_884 = "${site_url_link}${site_forum_title}/display_topic/${forum_post_id}/";
+						$redir_link_884 = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/";
 
 						// Redirect member to their post
 						header("Location: $redir_link_884");
@@ -111,7 +111,7 @@ if(isUserLoggedIn())
 					//echo " ($owner_uid-$userIdme) ";
 					
 					if($owner_uid != $userIdme){
-						$redir_link_884 = "${site_url_link}${site_forum_title}/display_topic/${forum_post_id}/";
+						$redir_link_884 = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/";
 
 						// Redirect member to their post
 						header("Location: $redir_link_884");
@@ -122,7 +122,7 @@ if(isUserLoggedIn())
 			}
 			echo "</td></tr><tr><td class='content78'>";
 				
-			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_title}/save_topic/${forum_id}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
+			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}/save_topic/${forum_id}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
 				
 				// create multi sessions
 				if(isset($session_token_num)){
