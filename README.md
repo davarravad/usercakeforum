@@ -17,7 +17,7 @@ Install
 4. Start using the forum on your website.
 
 Add the following to your MySQL database.
-Note: Make sure to change the uc_ to match your database settings.
+Note: Make sure to change the table prefix uc_ to match your database settings.
 --
 -- Table structure for table `uc_forum_cat`
 --
