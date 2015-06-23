@@ -34,7 +34,7 @@
 		forumCleanOrderCat($f_title);
 		
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=hr2>";
-		echo "<table width='100%'><tr><td>";
+		echo "<table width='100%' border='0'><tr><td>";
 		
 		//Display title or edit title field if mod and requested
 		forumEditTitleCheck($f_title);
@@ -45,7 +45,7 @@
 			// Display current order id
 			echo "</td><td align='right'>";
 			//echo "Order Id: $f_order_title ";
-			echo "<table><tr><td width='140px' align='right'>";
+			echo "<table border='0'><tr><td width='140px' align='right'>";
 				//Display Move Buttons
 				forumMoveTitleOrder($f_order_title);
 			echo "</td><td width='100px' align='right'>";

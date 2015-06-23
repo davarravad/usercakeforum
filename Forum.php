@@ -27,6 +27,7 @@ color:#000;
 padding:4px;
 }
 .hr2 {
+background-color: #CCC;
 font-family:Verdana, Geneva, sans-serif;
 font-size:12px;
 font-weight:700;
@@ -49,6 +50,28 @@ pre.code {
 font-family:Verdana, Geneva, sans-serif;
 font-size:11px;
 overflow:scroll;
+}
+.sweetform {
+display:inline;
+margin:0;
+}
+.sweet {
+border:1px solid #7C8A95;
+background-color:#FFF;
+color:#360;
+font-family:Verdana, Geneva, sans-serif;
+font-size:11px;
+cursor:pointer;
+padding:0;
+}
+.unsweet {
+border:1px solid #7C8A95;
+background-color:#FFF;
+color:red;
+font-family:Verdana, Geneva, sans-serif;
+font-size:11px;
+cursor:pointer;
+padding:0;
 }
 </style>
 ";
