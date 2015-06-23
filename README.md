@@ -71,5 +71,23 @@ CREATE TABLE IF NOT EXISTS `uc_forum_posts_replys` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Table structure for table `uc_views`
+--
+
+CREATE TABLE IF NOT EXISTS `uc_views` (
+  `vid` int(10) NOT NULL AUTO_INCREMENT,
+  `view_id` int(10) NOT NULL,
+  `view_sec_id` int(10) NOT NULL,
+  `view_sub` varchar(255) NOT NULL,
+  `view_location` varchar(255) NOT NULL,
+  `view_userid` varchar(50) NOT NULL,
+  `view_url` varchar(255) NOT NULL,
+  `view_owner_userid` int(10) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`vid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
 Enjoy!
 </pre>
