@@ -33,8 +33,8 @@
 		// If not then fix it.
 		forumCleanOrderCat($f_title);
 		
-		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=hr2>";
-		echo "<table width='100%' border='0'><tr><td>";
+		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td>";
+		echo "<table width='100%' border='0'  class='forum_title_head'><tr><td>";
 		
 		//Display title or edit title field if mod and requested
 		forumEditTitleCheck($f_title);
@@ -55,7 +55,7 @@
 		}
 		
 		echo "</td></tr></table>";
-		echo "</td></tr><tr><td class='content78'>";
+		echo "</td></tr><tr><td>";
 
 			$f_title_2 = addslashes($f_title);
 		
@@ -73,7 +73,7 @@
 				$f_des = stripslashes($f_des);
 				$f_cat = stripslashes($f_cat);
 				
-				echo "<table width='100%' border='0' cellspacing='0' cellpadding='0' class='epboxc'><tr><td width=''>";
+				echo "<table width='100%' border='0' cellspacing='0' cellpadding='0' class='forum_title_body'><tr><td>";
 					forumEditCatCheck($f_cat,$f_des,$f_id2);
 				echo "</td><td width='75'>";
 					// Display total number of topics for this category

@@ -2,6 +2,33 @@
 
 // Forum Functions
 
+// Gets user_name or display_name from $ID02
+// Set to send to var
+function get_user_name_2($ID02){
+
+	global $mysqli,$db_table_prefix;
+	
+	$stmt = $mysqli->prepare("SELECT 
+		user_name, display_name
+		FROM ".$db_table_prefix."users WHERE id=?");
+
+	$stmt->bind_param("i", $ID02);
+	$stmt->execute();
+
+	$stmt->bind_result($print_user_name, $print_user_display_name);
+	
+	$stmt->fetch();
+	$stmt->close();
+	
+	// Displays users user_name if display_name is not set
+	if(!empty($print_user_display_name)){
+		return $print_user_display_name;
+	}else{
+		return $print_user_name;
+	}
+	unset($print_user_display_name, $print_user_name);
+}
+
 // Total Topics Display Functions
 function total_topics_display($forum_id){
 	global $mysqli, $site_url_link, $site_forum_title, $db_table_prefix;
@@ -103,14 +130,14 @@ function style_header_content($stc_page_title, $stc_page_description){
 	
 	// Start the top of the content
 	echo "<center>";
-	echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='hr2'>";
+	echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='forum_main_head'>";
     
 	// Display title of the page in header of page table
 	echo "<h3>$stc_page_title</h3>"; 
 	//echo "(Test Header: This page is using the new style setup!)";
 
 	echo "</td></tr>";
-	echo "<tr><td class='content78' align=center>";
+	echo "<tr><td class='forum_main_body' align=center>";
 
 }
 
@@ -315,5 +342,51 @@ function form_token()
 	//End of Token Process
 }
 //END - Token form function
+
+// Function to display total number of views
+function total_topic_views($view_id, $view_sec_id, $view_sub, $view_location){
+
+	global $mysqli, $site_url_link, $site_forum_title, $userIdme;
+
+	// Display and update view count for topic
+	//Start View
+	$addview = "";  //Enables adding views to post
+	$view_location = "$view_location"; //Location on site where sweet is
+	$view_id = "$view_id";  //Post Id number
+	$view_userid = $_SERVER['REMOTE_ADDR'];  //User's Id
+	$view_url = "${site_url_link}${site_forum_title}/display_topic/${view_id}/";
+	$view_owner_userid = "$userIdme";  //Post owners userid
+	require "models/views.php";
+	//End View 
+	
+}
+
+// Get users status from database based on id
+function get_up_info_mem_status($get_info_id){
+
+	// echo "Getting user info ($get_info_id)";
+
+	// Get info from users
+		
+	global $mysqli,$db_table_prefix;
+	
+	$stmt = $mysqli->prepare("SELECT title FROM ".$db_table_prefix."users WHERE id=? LIMIT 1");
+
+	$stmt->bind_param("i", $get_info_id);
+	$stmt->execute();
+
+	$stmt->bind_result($val);
+	
+	$stmt->fetch();
+	$stmt->close();
+	
+	// Clean up the data
+	$val = stripslashes($val);
+	
+	return "$val";
+	
+	unset($val);
+
+}
 
 ?>

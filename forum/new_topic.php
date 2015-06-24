@@ -2,9 +2,10 @@
 
 if(isUserLoggedIn())
 {
-   // saving script
-   // get the variables from the URL POST string
-
+	// saving script
+	// get the variables from the URL POST string
+	global $websiteName, $site_forum_main;
+   
 	//Token validation function
 	if(!is_valid_token()){ 
 
@@ -56,12 +57,12 @@ if(isUserLoggedIn())
 
 					// Display Link of where we are at on the forum
 					echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td>";
-						echo "<a href='${site_url_link}${site_forum_main}/'>Forum Home</a> / ";
-						echo "<a href='${site_url_link}${site_forum_main}/forum_display/$f_cat/$f_id/'>$f_cat</a>";
+						echo "<a href='${site_url_link}${site_forum_main}'>Forum Home</a> / ";
+						echo "<a href='${site_url_link}${site_forum_main}?1=forum_display&2=$f_cat&3=$f_id/'>$f_cat</a>";
 					echo "</td></tr></table>";
 				}
 			
-			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=hr2>";
+			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='forum_title_head'>";
 			if($edit_forum_reply == "TRUE"){
 				echo "<strong>Edit Reply</strong>";
 				
@@ -81,7 +82,7 @@ if(isUserLoggedIn())
 					//echo " ($owner_uid-$userIdme) ";
 					
 					if($owner_uid != $userIdme){
-						$redir_link_884 = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/";
+						$redir_link_884 = "${site_url_link}${site_forum_main}?1=display_topic&2=${forum_post_id}/";
 
 						// Redirect member to their post
 						header("Location: $redir_link_884");
@@ -111,7 +112,7 @@ if(isUserLoggedIn())
 					//echo " ($owner_uid-$userIdme) ";
 					
 					if($owner_uid != $userIdme){
-						$redir_link_884 = "${site_url_link}${site_forum_main}/display_topic/${forum_post_id}/";
+						$redir_link_884 = "${site_url_link}${site_forum_main}?1=display_topic&2=${forum_post_id}/";
 
 						// Redirect member to their post
 						header("Location: $redir_link_884");
@@ -120,9 +121,9 @@ if(isUserLoggedIn())
 			}else{
 				echo "<strong>New Topic</strong>";
 			}
-			echo "</td></tr><tr><td class='content78'>";
+			echo "</td></tr><tr><td class='forum_title_body'>";
 				
-			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}/save_topic/${forum_id}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
+			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}?1=save_topic&2=${forum_id}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
 				
 				// create multi sessions
 				if(isset($session_token_num)){
@@ -182,10 +183,10 @@ if(isUserLoggedIn())
 			
 			echo "
 				<center><strong>Your Reply Preview</strong></center>
-				<pre class='forum'>
+				<pre class='forum' width='100%'>
 				<DIV id=preview class=scroll style=\"BORDER-RIGHT: #c0c0c0 1px solid; PADDING-RIGHT: 3px;
 				BORDER-TOP: #c0c0c0 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; BORDER-LEFT: #c0c0c0 1px solid; WIDTH: 98%;
-				PADDING-TOP: 3px; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 150px; overflow:scroll\"></DIV>
+				PADDING-TOP: 3px; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 150px; overflow:scroll; background-color: #FFF\"></DIV>
 				</pre>
 			";
 			
@@ -197,7 +198,7 @@ if(isUserLoggedIn())
 ?>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
-	<script src='/models/jquery.bbcode.js' type='text/javascript'></script>
+	<script src='models/jquery.bbcode.js' type='text/javascript'></script>
 	<script type=text/javascript>
 	  $(document).ready(function(){
 		$("#forum_content").bbcode({tag_bold:true,tag_italic:true,tag_underline:true,tag_link:true,tag_image:true,button_image:true});
@@ -210,7 +211,7 @@ if(isUserLoggedIn())
 		if (bbcode != $("#forum_content").val())
 		  {
 			bbcode = $("#forum_content").val();
-			$.get('/models/bbParser.php',
+			$.get('models/bbParser.php',
 			{
 			  bbcode: bbcode
 			},

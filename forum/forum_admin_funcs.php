@@ -332,7 +332,7 @@ function forumEditTitle($f_title){
 	// Only Admins Can Delete Forum Titles
 	if(userCheckForumAdmin()){
 		// Form button to delete forum title
-		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 			// Setup token in form // create multi sessions
 			if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
 			form_token();
@@ -420,7 +420,7 @@ function forumDisplayUserPerms(){
 	else if(isUserLoggedIn()){ $forum_perm_level = "Member"; }
 	else{ $forum_perm_level = "Visitor"; }
 	// If Admin or Mod Show settings to edit forum
-	echo "<table width='100%' class='content78' border='0'><tr><td>";
+	echo "<table width='100%' class='forum_footer' border='0'><tr><td>";
 		echo "Permission Level: $forum_perm_level";
 	echo "</td></tr></table>";
 }
@@ -483,7 +483,7 @@ function forumCreateNewTopic(){
 			}
 		}else{
 			// Show create title form
-			echo "<table width='100%' border='0'><tr><td>";
+			echo "<table width='100%' border='0' class='forum_new_title'><tr><td>";
 				echo "<form enctype=\"multipart/form-data\" action=\"\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 					// Setup token in form // create multi sessions
 					if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
@@ -759,7 +759,7 @@ function forumCatNew($f_title){
 			}
 		}else{
 			// Show create cat form
-			echo "<table width='100%' border='0'><tr><td>";
+			echo "<table width='100%' border='0' class='forum_new_cat'><tr><td>";
 				echo "<form enctype=\"multipart/form-data\" action=\"\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 					// Setup token in form // create multi sessions
 					if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
@@ -872,7 +872,7 @@ function forumEditCat($f_cat,$f_des,$f_id2){
 	// Only Admins Can Delete Forum Cats
 	if(userCheckForumAdmin()){
 		// Form button to delete forum cat
-		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+		echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 			// Setup token in form // create multi sessions
 			if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
 			form_token();

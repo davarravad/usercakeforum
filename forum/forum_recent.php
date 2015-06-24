@@ -90,7 +90,7 @@
 								//echo "($tstamp)"; // Test timestamp
 								echo "<a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> created.. <br>";
 								echo "<strong>";
-								echo "<a href='${site_url_link}${site_forum_main}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
+								echo "<a href='${site_url_link}${site_forum_main}?1=display_topic&2=$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 								echo "</strong>";
 								echo "<br>";
 								//Display how long ago this was posted
@@ -108,7 +108,7 @@
 								//echo "($tstamp)"; // Test timestamp
 								echo "<a href='${site_url_link}member/$rp_user_id2/'>$rp_user_name2</a> posted on.. <br>";
 								echo "<strong>";
-								echo "<a href='${site_url_link}${site_forum_main}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
+								echo "<a href='${site_url_link}${site_forum_main}?1=display_topic&2=$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 								echo "</strong>";
 								//Display how long ago this was posted
 								$timestart = "$rp_timestamp2";  //Time of post

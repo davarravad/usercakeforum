@@ -1,12 +1,12 @@
 <?php
 
 	// Main Page for forum
-	//echo "Welcome to the forum for diy stuff. ($load_cat)($load_id)<hr>";
+	//echo "Welcome to the forum for forum stuff. ($load_cat)($load_id)<hr>";
 	
 	// Check database for sections
 	
 	global $mysqli, $site_url_link, $site_forum_title, $userIdme, $db_table_prefix, $websiteName;
-	global $session_token_num;
+	global $session_token_num, $site_forum_main;
 
 	//Get user subscription information
 	$query_get_subcribe_info = "
@@ -75,7 +75,7 @@
 		// Run Top of page func
 		style_header_content($stc_page_title, $stc_page_description);
 		// Which database do we use
-		$stc_page_sel = "diy";
+		$stc_page_sel = "forum";
 		
 			// Get all Category from database
 			$stmt = $mysqli->prepare("SELECT 
@@ -97,21 +97,21 @@
 		
 		// Display Link of where we are at on the forum
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td>";
-			echo "<a href='${site_url_link}${site_forum_main}/'>Forum Home</a> / ";
-			echo "<a href='${site_url_link}${site_forum_main}/forum_display/$f_cat/$f_id/'>$f_cat</a> / ";
+			echo "<a href='${site_url_link}${site_forum_main}'>Forum Home</a> / ";
+			echo "<a href='${site_url_link}${site_forum_main}?1=forum_display&2=$f_cat&3=$f_id/'>$f_cat</a> / ";
 			echo "<a href=''>$f_p_title</a>";
 		echo "</td></tr></table>";
 		
-		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=hr2 colspan=3>";
+		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=forum_title_head colspan=3>";
 		echo "<strong>$f_p_title</strong><br>";
-		echo "</td></tr><tr><td class='content78' width='100' valign='top'>";
+		echo "</td></tr><tr><td class='forum_title_body' width='100' valign='top'>";
 			echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr>";
 			echo "<td align='center' width='100px'>";
 				// Show user main pic
 				global $site_dir, $userIdme;
 				$ID02 = $f_p_user_id;
-				require('pages/forum/userimage_small.php');
-				echo "$sw_user_sweeted_pic <br><a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> ";
+				require('forum/userimage_small.php');
+				echo "<br><a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> ";
 
 				//Show user's membership status
 				$up_get_mem_status = get_up_info_mem_status($ID02);
@@ -123,7 +123,7 @@
 				echo "<br><font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 				echo "<br>";
 			echo "</td></tr></table>";
-		echo "</td><td class='content78' valign='top' width=''>";
+		echo "</td><td class='forum_title_body' valign='top' width=''>";
 		
 				// If year make model engine are set show them
 				if(!empty($f_p_year) && !empty($f_p_make) && !empty($f_p_model) && !empty($f_p_engine)){
@@ -138,7 +138,7 @@
 		
 		echo "<pre class='forum'>$f_p_content_bb</pre>";
 		
-		echo "</td><td class='content78' valign='top' width='100px'>";
+		echo "</td><td class='forum_title_body' valign='top' width='100px'>";
 		
 			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top'>";
 			
@@ -150,16 +150,6 @@
 				}
 
 			echo "</td></tr><tr><td align='center' valign='bottom'>";
-				//Start Sweet
-				if(empty($userIdme)){ $userIdme = ""; }
-				$sweet_location = "forum_posts"; //Location on site where sweet is
-				$sweet_id = "$f_p_id";  //Post Id number
-				$sweet_userid = "$userIdme";  //User's Id
-				$sweet_url = "${site_url_link}${site_forum_main}/display_topic/${f_p_id}/";
-				$sweet_owner_userid = "$f_p_user_id";  //Post owners userid
-				$sweet_sec_id = $f_p_id; //Main topic id
-				require "models/sweets.php";
-				//End Sweet 
 					
 					
 				// If user owns this content show forum buttons for edit and delete
@@ -245,7 +235,7 @@
 		$pnum   = $pager->pnum; 
 		
 		// Global link to this page for page nums
-		$cur_page_url_link = "Forum/display_topic/$f_p_id/";
+		$cur_page_url_link = "Forum.php?1=display_topic&2=$f_p_id";
 		
 		// End Get Page Number Stuff
 		
@@ -257,7 +247,7 @@
 			
 				// Display page count and links
 				if($total > $limit){
-					echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top' class='hr2'>";
+					echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top' class='forum_title_head'>";
 						echo "<center><table width=100%><tr><td align=left width='25%'>";
 						// use $result here to output page content 
 
@@ -265,12 +255,12 @@
 						if ($pnum == 1) // this is the first page - there is no previous page 
 							; 
 						else            // not the first page, link to the previous page 
-							echo " < <a href=\"${site_url_link}${cur_page_url_link}?pnum=".($pnum - 1)."\">Previous</a> | "; 
+							echo " < <a href=\"${site_url_link}${cur_page_url_link}&pnum=".($pnum - 1)."\">Previous</a> | "; 
 
 						if ($pnum == $pager->numPages) // this is the last page - there is no next page 
 							; 
 						else            // not the last page, link to the next page 
-							echo " <a href=\"${site_url_link}${cur_page_url_link}?pnum=".($pnum + 1)."\">Next</a> > "; 
+							echo " <a href=\"${site_url_link}${cur_page_url_link}&pnum=".($pnum + 1)."\">Next</a> > "; 
 
 						echo "</td><td align=center width='50%'>";
 						
@@ -289,12 +279,12 @@
 						
 						// Display link for first page if not currently viewing it
 						if($pnum >= 2){
-							echo " &lt;  <a href=\"${site_url_link}${cur_page_url_link}?pnum=1\">First</a>  ";
+							echo " &lt;  <a href=\"${site_url_link}${cur_page_url_link}&pnum=1\">First</a>  ";
 						}
 						
 						// If page 1 is not shown then show it here
 						if($pnum >= $max){
-							echo "<a href=\"${site_url_link}${cur_page_url_link}?pnum=1\" class='epboxa'>1</a>...";
+							echo "<a href=\"${site_url_link}${cur_page_url_link}&pnum=1\" class='epboxa'>1</a>...";
 						}
 
 						if($pager->numPages > $max){
@@ -304,7 +294,7 @@
 								if ($i == $pager->pnum) 
 									echo "<font color=green class='epbox'><strong>$i</strong></font>"; 
 								else 
-									echo "<a href=\"${site_url_link}${cur_page_url_link}?pnum=$i\" class='epboxa'>$i</a>"; 
+									echo "<a href=\"${site_url_link}${cur_page_url_link}&pnum=$i\" class='epboxa'>$i</a>"; 
 							}
 						}else{
 							// If less than max display links
@@ -312,18 +302,18 @@
 								if ($i == $pager->pnum) 
 									echo "<font color=green class='epbox'><strong>$i</strong></font>"; 
 								else 
-									echo "<a href=\"${site_url_link}${cur_page_url_link}?pnum=$i\" class='epboxa'>$i</a>"; 
+									echo "<a href=\"${site_url_link}${cur_page_url_link}&pnum=$i\" class='epboxa'>$i</a>"; 
 							}
 						}
 						
 						// Show last two pages if not close to them
 						if($pnum < ($pager->numPages - floor($max / 2))){
-							echo "...<a href=\"${site_url_link}${cur_page_url_link}?pnum=$pager->numPages\" class='epboxa'>$pager->numPages</a>";
+							echo "...<a href=\"${site_url_link}${cur_page_url_link}&pnum=$pager->numPages\" class='epboxa'>$pager->numPages</a>";
 						}
 						
 						// Show last page link if not on it
 						if($pnum < $pager->numPages){
-							echo "  <a href=\"${site_url_link}${cur_page_url_link}?pnum=$pager->numPages\">Last</a> &gt;  ";
+							echo "  <a href=\"${site_url_link}${cur_page_url_link}&pnum=$pager->numPages\">Last</a> &gt;  ";
 						}
 						
 						echo "</td><td align=right width='25%'>";
@@ -353,14 +343,12 @@
 				$rf_p_content = stripslashes($rf_p_content);
 					echo "<a class='anchor' name='topicreply$rf_p_main_id'></a>";
 					echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'>";
-					echo "<tr><td class='content78_b' width='100' valign='top'>";
+					echo "<tr><td class='forum_title_body_b' width='100' valign='top'>";
 						echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr>";
 						echo "<td align='center'>";
 							// Show user main pic
-							global $site_dir;
 							$ID02 = $rf_p_user_id;
-							require('pages/forum/userimage_small.php');
-							echo "$sw_user_sweeted_pic <br><a href='${site_url_link}member/$rf_p_user_id/'>$rf_p_user_name</a> ";
+							echo "<br><a href='${site_url_link}member/$rf_p_user_id/'>$rf_p_user_name</a> ";
 
 							//Show user's membership status
 							$up_get_mem_status = get_up_info_mem_status($rf_p_user_id);
@@ -372,7 +360,7 @@
 							echo "<br><font color=green> " . dateDiff("now", "$timestart", 1) . " ago</font> ";
 													
 						echo "</td></tr></table>";
-					echo "</td><td class='content78' valign='top'>";
+					echo "</td><td class='forum_title_body' valign='top'>";
 					
 					//Format the content with bbcode
 					require_once('models/bbParser.php');
@@ -380,7 +368,7 @@
 					$rf_p_content_bb = $parser->getHtml($rf_p_content);
 					echo "<pre class='forum'>$rf_p_content_bb</pre>";
 					
-					echo "</td><td class='content78' valign='top' width='100'>";
+					echo "</td><td class='forum_title_body' valign='top' width='100'>";
 					
 						echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top'>";
 						
@@ -393,17 +381,6 @@
 
 						echo "</td></tr><tr><td align='center' valign='bottom'>";
 							
-							//Start Sweet
-							if(empty($userIdme)){ $userIdme = ""; }
-							$sweet_location = "forum_posts_replys"; //Location on site where sweet is
-							$sweet_id = "$rf_p_main_id";  //Post Id number
-							$sweet_userid = "$userIdme";  //User's Id
-							$sweet_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${f_p_id}&pnum=${pnum}#topicreply${rf_p_main_id}";
-							$sweet_owner_userid = "$rf_p_user_id";  //Post owners userid
-							$sweet_sec_id = $f_p_id; //Main topic id
-							require "models/sweets.php";
-							//End Sweet 
-								
 								
 							// If user owns this content show forum buttons for edit and delete
 							if(isUserLoggedIn()){
@@ -444,7 +421,7 @@
 			
 				// Display page count and links
 				if($total > $limit){
-					echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top' class='hr2'>";
+					echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top' class='forum_title_head'>";
 						echo "<center><table width=100%><tr><td align=left width='25%'>";
 						// use $result here to output page content 
 
@@ -452,12 +429,12 @@
 						if ($pnum == 1) // this is the first page - there is no previous page 
 							; 
 						else            // not the first page, link to the previous page 
-							echo " < <a href=\"${site_url_link}${cur_page_url_link}?pnum=".($pnum - 1)."\">Previous</a> | "; 
+							echo " < <a href=\"${site_url_link}${cur_page_url_link}&pnum=".($pnum - 1)."\">Previous</a> | "; 
 
 						if ($pnum == $pager->numPages) // this is the last page - there is no next page 
 							; 
 						else            // not the last page, link to the next page 
-							echo " <a href=\"${site_url_link}${cur_page_url_link}?pnum=".($pnum + 1)."\">Next</a> > "; 
+							echo " <a href=\"${site_url_link}${cur_page_url_link}&pnum=".($pnum + 1)."\">Next</a> > "; 
 
 						echo "</td><td align=center width='50%'>";
 						
@@ -476,12 +453,12 @@
 						
 						// Display link for first page if not currently viewing it
 						if($pnum >= 2){
-							echo " &lt;  <a href=\"${site_url_link}${cur_page_url_link}?pnum=1\">First</a>  ";
+							echo " &lt;  <a href=\"${site_url_link}${cur_page_url_link}&pnum=1\">First</a>  ";
 						}
 						
 						// If page 1 is not shown then show it here
 						if($pnum >= $max){
-							echo "<a href=\"${site_url_link}${cur_page_url_link}?pnum=1\" class='epboxa'>1</a>...";
+							echo "<a href=\"${site_url_link}${cur_page_url_link}&pnum=1\" class='epboxa'>1</a>...";
 						}
 
 						if($pager->numPages > $max){
@@ -491,7 +468,7 @@
 								if ($i == $pager->pnum) 
 									echo "<font color=green class='epbox'><strong>$i</strong></font>"; 
 								else 
-									echo "<a href=\"${site_url_link}${cur_page_url_link}?pnum=$i\" class='epboxa'>$i</a>"; 
+									echo "<a href=\"${site_url_link}${cur_page_url_link}&pnum=$i\" class='epboxa'>$i</a>"; 
 							}
 						}else{
 							// If less than max display links
@@ -499,18 +476,18 @@
 								if ($i == $pager->pnum) 
 									echo "<font color=green class='epbox'><strong>$i</strong></font>"; 
 								else 
-									echo "<a href=\"${site_url_link}${cur_page_url_link}?pnum=$i\" class='epboxa'>$i</a>"; 
+									echo "<a href=\"${site_url_link}${cur_page_url_link}&pnum=$i\" class='epboxa'>$i</a>"; 
 							}
 						}
 						
 						// Show last two pages if not close to them
 						if($pnum < ($pager->numPages - floor($max / 2))){
-							echo "...<a href=\"${site_url_link}${cur_page_url_link}?pnum=$pager->numPages\" class='epboxa'>$pager->numPages</a>";
+							echo "...<a href=\"${site_url_link}${cur_page_url_link}&pnum=$pager->numPages\" class='epboxa'>$pager->numPages</a>";
 						}
 						
 						// Show last page link if not on it
 						if($pnum < $pager->numPages){
-							echo "  <a href=\"${site_url_link}${cur_page_url_link}?pnum=$pager->numPages\">Last</a> &gt;  ";
+							echo "  <a href=\"${site_url_link}${cur_page_url_link}&pnum=$pager->numPages\">Last</a> &gt;  ";
 						}
 						
 						echo "</td><td align=right width='25%'>";
@@ -528,7 +505,7 @@
 		} // End of sql resutls check
 		
 		// Display reply textarea
-		require("pages/forum/reply_topic.php");
+		require("forum/reply_topic.php");
 		
 		// Display message that tells current user if they are subscribed to the current topic
 		if($usr_email_subcribe == "NO"){
@@ -559,10 +536,10 @@
 		// Display and update view count for topic
 		//Start View
 		$addview = "yesaddview";  //Enables adding views to post
-		$view_location = "diy"; //Location on site where sweet is
+		$view_location = "forum"; //Location on site where sweet is
 		$view_id = "$f_p_id";  //Post Id number
 		$view_userid = $_SERVER['REMOTE_ADDR'];  //User's Id
-		$view_url = "${site_url_link}${site_forum_main}/display_topic/${f_p_id}/";
+		$view_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${f_p_id}/";
 		$view_owner_userid = "$userIdme";  //Post owners userid
 		require "models/views.php";
 		//End View 

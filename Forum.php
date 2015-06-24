@@ -16,30 +16,124 @@ require_once("models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 require_once("models/header.php");
 
+// Get current user id
+if(isUserLoggedIn())
+{
+	$userIdme = $loggedInUser->user_id;
+}
+
 // CSS for Forum Tables
 echo "
 <STYLE type='text/css'>
-.content78 {
-border:1px inset #000000;
+table{
+border: 0px;
+padding: 0px;
+}
+td{
+border: 0px;
+padding: 0px;
+}
+.forum_main_head {
+background-color: #999;
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+font-weight:700;
+color:#000;
+border:1px solid #000000;
+padding:4px;
+}
+.forum_main_body {
 font-family:Verdana, Geneva, sans-serif;
 font-size:12px;
 color:#000;
+border-color:#000000;
+border-style:solid;
+border-width:0px 1px 1px 1px;
 padding:4px;
 }
-.hr2 {
+.forum_title_head {
+background-color: #999;
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+font-weight:700;
+color:#000;
+border:1px solid #000000;
+padding:4px;
+}
+.forum_title_body {
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
 background-color: #CCC;
+border-color:#000000;
+border-style:solid;
+border-width:0px 1px 1px 1px;
+color:#000;
+padding:4px;
+}
+.forum_title_body_b {
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+background-color: #E9E9E9;
+border-color:#000000;
+border-style:solid;
+border-width:0px 1px 1px 1px;
+color:#000;
+padding:4px;
+}
+.forum_title_body A:link {
+text-decoration: none;
+color: #333;
+}
+.forum_title_body A:visited {
+text-decoration: none;
+color: #666;
+}
+.forum_title_body A:hover {
+text-decoration: underline;
+color: #6A0000;
+}
+.forum_edit_buttons {
+border:0px;
+}
+.forum_new_cat {
+background-color: #E9E9E9;
 font-family:Verdana, Geneva, sans-serif;
 font-size:12px;
 font-weight:700;
 color:#000;
 border-color:#000000;
 border-style:solid;
-border-width:1px 1px 0;
+border-width:0px 1px 1px 1px;
 padding:4px;
 }
-.epboxc {
-border:2px groove #000000;
+.forum_new_title {
+background-color: #E9E9E9;
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+font-weight:700;
+color:#000;
+border:1px solid #000000;
 padding:4px;
+}
+.forum_footer {
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+border-color:#000000;
+border-style:solid;
+border-width:0px 1px 1px 1px;
+color:#000;
+padding:4px;
+}
+.forum_topic_list{
+font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+background-color: #E9E9E9;
+border-color:#000000;
+border-style:solid;
+border-width:1px 1px 1px 1px;
+color:#000;
+padding:2px;
+margin-top: 2px;
 }
 pre.forum {
 font-family:Verdana, Geneva, sans-serif;

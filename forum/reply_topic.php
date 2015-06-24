@@ -7,25 +7,22 @@ if(isUserLoggedIn())
 				
 			global $mysqli, $site_url_link, $site_forum_title, $userIdme, $db_table_prefix;
 			
-			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='content78' valign='top' width='100'>";
+			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='forum_title_body' valign='top' width='100'>";
 				echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr>";
 				echo "<td align='center'>";
 					// Show user main pic
-					global $site_dir;
-					$ID02 = $userIdme;
-					require('pages/forum/userimage_small.php');
 					$get_user_name_323 = get_user_name_2($userIdme);
-					echo "$sw_user_sweeted_pic <br><a href='${site_url_link}member/$userIdme/'>$get_user_name_323</a> ";
+					echo "<br><a href='${site_url_link}member/$userIdme/'>$get_user_name_323</a> ";
 
 					//Show user's membership status
-					$up_get_mem_status = get_up_info_mem_status($ID02);
+					$up_get_mem_status = get_up_info_mem_status($userIdme);
 					echo "<br> $up_get_mem_status ";
 					
 					echo "<br>";
 				echo "</td></tr></table>";
-			echo "</td><td class='content78' valign='top'>";
+			echo "</td><td class='forum_title_body' valign='top'>";
 			
-			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}/save_topic/${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
+			echo "<form enctype=\"multipart/form-data\" action=\"${site_url_link}${site_forum_main}?1=save_topic&2=${f_p_id_cat}/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" >";
 				
 				// create multi sessions
 				if(isset($session_token_num)){
@@ -62,7 +59,7 @@ if(isUserLoggedIn())
 				<pre class='forum'>
 				<DIV id=preview class=scroll style=\"BORDER-RIGHT: #c0c0c0 1px solid; PADDING-RIGHT: 3px;
 				BORDER-TOP: #c0c0c0 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; BORDER-LEFT: #c0c0c0 1px solid; WIDTH: 98%;
-				PADDING-TOP: 3px; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 100px; overflow:scroll\"></DIV>
+				PADDING-TOP: 3px; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 100px; overflow:scroll; BACKGROUND-COLOR: #FFF\"></DIV>
 				</pre>
 			";
 			

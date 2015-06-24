@@ -1,7 +1,7 @@
 <?php
 
 	// Main Page for forum
-	//echo "Welcome to the forum for diy stuff. ($load_cat)($load_id)<hr>";
+	//echo "Welcome to the forum for forum stuff. ($load_cat)($load_id)<hr>";
 	
 	// Check database for sections
 	
@@ -27,17 +27,17 @@
 		// Run Top of page func
 		style_header_content($stc_page_title, $stc_page_description);
 		// Which database do we use
-		$stc_page_sel = "diy";
+		$stc_page_sel = "forum";
 		
 		// Display Link of where we are at on the forum
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td>";
-			echo "<a href='${site_url_link}${site_forum_main}/'>Forum Home</a> / ";
-			echo "<a href='${site_url_link}${site_forum_main}/forum_display/$f_cat/$f_id/'>$f_cat</a>";
+			echo "<a href='${site_url_link}${site_forum_main}'>Forum Home</a> / ";
+			echo "<a href='${site_url_link}${site_forum_main}?1=forum_display&2=$f_cat&3=$f_id/'>$f_cat</a>";
 		echo "</td></tr></table>";
 		
-		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=hr2>";
+		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='forum_title_head'>";
 		echo "<strong>$f_cat</strong><br>";
-		echo "</td></tr><tr><td class='content78'>";
+		echo "</td></tr><tr><td class='forum_title_body'>";
 		echo "$f_des";
 
 			// Get all Sub Categories for current category
@@ -117,7 +117,7 @@
 		$pnum   = $pager->pnum; 
 		
 		// Global link to this page for page nums
-		$cur_page_url_link = "${site_forum_title}/forum_display/$f_cat/$f_id/";
+		$cur_page_url_link = "${site_forum_title}?1=forum_display&2=$f_cat&3=$f_id/";
 		
 		// End Get Page Number Stuff
 			
@@ -137,11 +137,11 @@
 					
 					$f_p_title = stripslashes($f_p_title);
 					
-					echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td valign='top' width='100%' class='epboxc'>";
+					echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td valign='top' width='100%' class='forum_topic_list'>";
 						echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='left'>";
 							//echo "($tstamp)"; // Test timestamp
 							echo "<strong><font size='2'>";
-							echo "<a href='${site_url_link}${site_forum_main}/display_topic/$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
+							echo "<a href='${site_url_link}${site_forum_main}?1=display_topic&2=$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 							echo "</font></strong>";
 							echo "<br>";
 							echo "&nbsp; Created by <a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> - ";
@@ -157,13 +157,9 @@
 								echo " <table border='0' cellpadding='0' cellspacing='0'><tr><td width='100px'> ";
 									// Display total topic replys
 									total_topic_replys_display_a($f_p_id);
-								echo " </td><td> ";
-									// Display total sweets
-									// ex=(sweet_id, sweet_sec_id, 'sweet_sub', 'sweet_location')
-									total_topic_sweets($f_p_id, NULL, 'sweet', 'forum_posts');
 								echo " </td><td align='right'> &nbsp; ";
 									// Display total views
-									total_topic_views($f_p_id, NULL, 'views', 'diy');
+									total_topic_views($f_p_id, NULL, 'views', 'forum');
 								echo "</td></tr></table>";
 								
 							
@@ -196,7 +192,7 @@
 		
 		// Display page count and links
 		if($total > $limit){
-			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top' class='content78'>";
+			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td align='center' valign='top' class='forum_title_body'>";
 				echo "<center><table width=100%><tr><td align=left width='25%'>";
 				// use $result here to output page content 
 
