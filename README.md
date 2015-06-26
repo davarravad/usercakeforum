@@ -1,5 +1,9 @@
 # usercakeforum
 <pre>
+UserCake Forum by DaVaR
+http://www.thedavar.net
+Version 1.0.0
+
 UserCake compatable forum.  Easy to use and lightweight.  
 
 Compatable with User Cake 2.0.2
