@@ -1,5 +1,12 @@
 <?
-//views Main
+////////////////////////////////////
+//   UserCake Forum by DaVaR
+//   http://www.thedavar.net
+//   Version 1.0.0
+//   Forum for User Cake 2.0.2
+////////////////////////////////////
+
+// Display how many views a topic has had
 
 global $mysqli, $site_url_link, $site_forum_title, $db_table_prefix;
 

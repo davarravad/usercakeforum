@@ -1,4 +1,21 @@
 <?php
+////////////////////////////////////
+//   UserCake Forum by DaVaR
+//   http://www.thedavar.net
+//   Version 1.0.0
+//   Forum for User Cake 2.0.2
+////////////////////////////////////
+
+// Setup to be included on your home page.
+// Use this on your home page if you like.
+
+// Add Forum Functions
+require("forum/forum_funcs.php");
+
+// Header Default display
+require_once("models/config.php");
+if (!securePage($_SERVER['PHP_SELF'])){die();}
+require_once("models/header.php");
 
 	// Forum Recent Post for Right Side Bar
 
@@ -9,6 +26,7 @@
 		// Which database do we use
 		$stc_page_sel = "forum";
 		$site_forum_title = "Forum";
+		$site_forum_main = "Forum.php";
 		
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='main_tbl_nav_links_title2'>";
 		echo "<strong>Forum Recent Posts</strong><br>";
@@ -88,7 +106,7 @@
 						echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td valign='top' width='100%' class=''>";
 							echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='left'>";
 								//echo "($tstamp)"; // Test timestamp
-								echo "<a href='${site_url_link}member/$f_p_user_id/'>$f_p_user_name</a> created.. <br>";
+								echo "$f_p_user_name created.. <br>";
 								echo "<strong>";
 								echo "<a href='${site_url_link}${site_forum_main}?1=display_topic&2=$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 								echo "</strong>";
@@ -106,7 +124,7 @@
 						echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td valign='top' width='100%' class=''>";
 							echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='left'>";
 								//echo "($tstamp)"; // Test timestamp
-								echo "<a href='${site_url_link}member/$rp_user_id2/'>$rp_user_name2</a> posted on.. <br>";
+								echo "$rp_user_name2 posted on.. <br>";
 								echo "<strong>";
 								echo "<a href='${site_url_link}${site_forum_main}?1=display_topic&2=$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 								echo "</strong>";

@@ -1,7 +1,12 @@
 <?php
+////////////////////////////////////
+//   UserCake Forum by DaVaR
+//   http://www.thedavar.net
+//   Version 1.0.0
+//   Forum for User Cake 2.0.2
+////////////////////////////////////
 
-// Forum for User Cake 2.0.2
-// This forum allows users to chat about issues with their vehicles
+// Main file for user cake forum
 
 // Debug Setting TRUE=ON FALSE=OFF
 $debug_website = "FALSE";

@@ -1,10 +1,14 @@
 <?php
+////////////////////////////////////
+//   UserCake Forum by DaVaR
+//   http://www.thedavar.net
+//   Version 1.0.0
+//   Forum for User Cake 2.0.2
+////////////////////////////////////
 
 if(isUserLoggedIn())
 {
-
-
-				
+	
 			global $mysqli, $site_url_link, $site_forum_title, $userIdme, $db_table_prefix;
 			
 			echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class='forum_title_body' valign='top' width='100'>";
