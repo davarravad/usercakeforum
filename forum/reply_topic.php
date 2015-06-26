@@ -65,10 +65,12 @@ if(isUserLoggedIn())
 			
 			echo "</td></tr></table>";
 
-?>
+			//echo "<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js' type='text/javascript'></script>";  // Does not work with https
+			echo "<script src='models/jquery-1.3.2.min.js' type='text/javascript'></script>"; // Works
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
-	<script src='/models/jquery.bbcode.js' type='text/javascript'></script>
+?>
+	
+	<script src='models/jquery.bbcode.js' type='text/javascript'></script>
 	<script type=text/javascript>
 	  $(document).ready(function(){
 		$("#forum_content").bbcode({tag_bold:true,tag_italic:true,tag_underline:true,tag_link:true,tag_image:true,button_image:true});
@@ -81,7 +83,7 @@ if(isUserLoggedIn())
 		if (bbcode != $("#forum_content").val())
 		  {
 			bbcode = $("#forum_content").val();
-			$.get('/models/bbParser.php',
+			$.get('models/bbParser.php',
 			{
 			  bbcode: bbcode
 			},
