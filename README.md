@@ -95,3 +95,8 @@ CREATE TABLE IF NOT EXISTS `uc_views` (
 
 Enjoy!
 </pre>
+
+NOTE:
+If you get the following error when you open the forum, you will need to instal mysqlnd:
+Fatal error: Call to undefined method mysqli_result::fetch_all() in forum_admin_funcs.php on line 72
+You can find information on how to install here: http://www.php.net/manual/en/mysqlnd.install.php
