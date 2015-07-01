@@ -2,7 +2,7 @@
 ////////////////////////////////////
 //   UserCake Forum by DaVaR
 //   http://www.thedavar.net
-//   Version 1.0.1
+//   Version 1.0.0
 //   Forum for User Cake 2.0.2
 ////////////////////////////////////
 
@@ -68,9 +68,7 @@ require_once("models/header.php");
 			";
 			
 			if($result = $mysqli->query($query)){
-				$arr2 = $result->fetch_all(MYSQLI_BOTH);
-				foreach($arr2 as $row2)
-				{
+				while ($row2 = $result->fetch_assoc()) {
 					$f_p_id = $row2['forum_post_id'];
 					$f_p_id_cat = $row2['forum_id'];
 					$f_p_title = $row2['forum_title'];

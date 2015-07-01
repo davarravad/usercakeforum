@@ -2,7 +2,7 @@
 ////////////////////////////////////
 //   UserCake Forum by DaVaR
 //   http://www.thedavar.net
-//   Version 1.0.1
+//   Version 1.0.0
 //   Forum for User Cake 2.0.2
 ////////////////////////////////////
 
@@ -51,9 +51,7 @@ if(isUserLoggedIn())
 				// Get all Categories from database
 				$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_id`='$forum_id' LIMIT 1";
 				$result = $mysqli->query($query);
-				$arr = $result->fetch_all(MYSQLI_BOTH);
-				foreach($arr as $row)
-				{
+				while ($row = $result->fetch_assoc()) {
 					$f_cat = $row['forum_cat'];
 					$f_des = $row['forum_des'];
 					$f_id = $row['forum_id'];
@@ -75,9 +73,7 @@ if(isUserLoggedIn())
 					// Get main post from database
 					$query3 = "SELECT * FROM ".$db_table_prefix."forum_posts_replys WHERE `id`='$id' LIMIT 1";
 					$result3 = $mysqli->query($query3);
-					$arr3 = $result3->fetch_all(MYSQLI_BOTH);
-					foreach($arr3 as $row3)
-					{
+					while ($row3 = $result3->fetch_assoc()) {
 						$owner_uid = $row3['fpr_user_id'];
 						$forum_content = $row3['fpr_content'];
 					}
@@ -100,9 +96,7 @@ if(isUserLoggedIn())
 					// Get main post from database
 					$query3 = "SELECT * FROM ".$db_table_prefix."forum_posts WHERE `forum_post_id`='$id' LIMIT 1";
 					$result3 = $mysqli->query($query3);
-					$arr3 = $result3->fetch_all(MYSQLI_BOTH);
-					foreach($arr3 as $row3)
-					{
+					while ($row3 = $result3->fetch_assoc()) {
 						$owner_uid = $row3['forum_user_id'];
 						$forum_title = $row3['forum_title'];
 						$forum_content = $row3['forum_content'];

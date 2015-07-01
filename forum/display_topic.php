@@ -2,7 +2,7 @@
 ////////////////////////////////////
 //   UserCake Forum by DaVaR
 //   http://www.thedavar.net
-//   Version 1.0.1
+//   Version 1.0.0
 //   Forum for User Cake 2.0.2
 ////////////////////////////////////
 
@@ -36,33 +36,29 @@
 	";
 	
 			if($result_get_subcr = $mysqli->query($query_get_subcribe_info)){
-				$arr_get_subcr = $result_get_subcr->fetch_all(MYSQLI_BOTH);
-					foreach($arr_get_subcr as $row_get_subcr)
-					{
-						$usr_email_subcribe = $row_get_subcr['F_SUBCR']; 
-						//echo "<br>-($usr_email_subcribe)-<br>";
-					}
+				while ($row_get_subcr = $result_get_subcr->fetch_assoc()) {
+					$usr_email_subcribe = $row_get_subcr['F_SUBCR']; 
+					//echo "<br>-($usr_email_subcribe)-<br>";
+				}
 			}
 			// Check to see if there was any data pulled from database for usr_email_subcribe
 			if(empty($usr_email_subcribe)){ $usr_email_subcribe = ""; }
 	
 	// Get main post from database
-	$query = "SELECT * FROM ".$db_table_prefix."forum_posts WHERE `forum_post_id`='$load_cat' LIMIT 1";
-	$result = $mysqli->query($query);
-	$arr = $result->fetch_all(MYSQLI_BOTH);
-	foreach($arr as $row)
-	{
-		$f_p_id = $row['forum_post_id'];
-		$f_p_id_cat = $row['forum_id'];
-		$f_p_title = $row['forum_title'];
-		$f_p_content = $row['forum_content'];
-		$f_p_edit_date = $row['forum_edit_date'];
-		$f_p_timestamp = $row['forum_timestamp'];
-		$f_p_user_id = $row['forum_user_id'];
-		$f_p_year = $row['forum_year'];
-		$f_p_make = $row['forum_make'];
-		$f_p_model = $row['forum_model'];
-		$f_p_engine = $row['forum_engine'];
+	$query23 = "SELECT * FROM ".$db_table_prefix."forum_posts WHERE `forum_post_id`='$load_cat' LIMIT 1";
+	$result23 = $mysqli->query($query23);
+	while ($row23 = $result23->fetch_assoc()) {
+		$f_p_id = $row23['forum_post_id'];
+		$f_p_id_cat = $row23['forum_id'];
+		$f_p_title = $row23['forum_title'];
+		$f_p_content = $row23['forum_content'];
+		$f_p_edit_date = $row23['forum_edit_date'];
+		$f_p_timestamp = $row23['forum_timestamp'];
+		$f_p_user_id = $row23['forum_user_id'];
+		$f_p_year = $row23['forum_year'];
+		$f_p_make = $row23['forum_make'];
+		$f_p_model = $row23['forum_model'];
+		$f_p_engine = $row23['forum_engine'];
 		$f_p_user_name = get_user_name_2($f_p_user_id);
 		
 		$f_p_title = stripslashes($f_p_title);
@@ -249,7 +245,7 @@
 		// Get reply posts from database
 		$query3 = "SELECT * FROM ".$db_table_prefix."forum_posts_replys WHERE `fpr_post_id`='$f_p_id' ORDER BY id ASC LIMIT $offset, $limit";
 		if($result3 = $mysqli->query($query3)){
-			$arr3 = $result3->fetch_all(MYSQLI_BOTH);
+			
 			
 				// Display page count and links
 				if($total > $limit){
@@ -335,8 +331,7 @@
 				} // End of pages check
 
 			
-			foreach($arr3 as $row3)
-			{
+			while ($row3 = $result3->fetch_assoc()) {
 				$rf_p_main_id = $row3['id'];
 				$rf_p_id = $row3['fpr_post_id'];
 				$rf_p_id_cat = $row3['fpr_id'];

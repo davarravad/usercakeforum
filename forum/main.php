@@ -2,7 +2,7 @@
 ////////////////////////////////////
 //   UserCake Forum by DaVaR
 //   http://www.thedavar.net
-//   Version 1.0.1
+//   Version 1.0.0
 //   Forum for User Cake 2.0.2
 ////////////////////////////////////
 
@@ -27,9 +27,7 @@
 	// Get all Categories from database
 	$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' GROUP BY forum_title ORDER BY `".$db_table_prefix."forum_cat`.`forum_order_title` ASC ";
 	$result = $mysqli->query($query);
-	$arr = $result->fetch_all(MYSQLI_BOTH);
-	foreach($arr as $row)
-	{
+	while ($row = $result->fetch_assoc()) {
 		$f_title = $row['forum_title'];
 		$f_id = $row['forum_id'];
 		$f_order_title = $row['forum_order_title'];
@@ -68,9 +66,7 @@
 			// Get all Sub Categories for current category
 			$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_title`='$f_title_2' GROUP BY forum_cat ORDER BY forum_order_cat";
 			$result = $mysqli->query($query);
-			$arr2 = $result->fetch_all(MYSQLI_BOTH);
-			foreach($arr2 as $row2)
-			{
+			while ($row2 = $result->fetch_assoc()) {
 				$f_cat = $row2['forum_cat'];
 				$f_des = $row2['forum_des'];
 				$f_id2 = $row2['forum_id'];

@@ -2,7 +2,7 @@
 ////////////////////////////////////
 //   UserCake Forum by DaVaR
 //   http://www.thedavar.net
-//   Version 1.0.1
+//   Version 1.0.0
 //   Forum for User Cake 2.0.2
 ////////////////////////////////////
 
@@ -240,7 +240,7 @@ if(isUserLoggedIn())
 
 					
 				if($result_get_uids = $mysqli->query($query_get_uids)){
-					$arr_get_uids = $result_get_uids->fetch_all(MYSQLI_BOTH);
+					$arr_get_uids = $result_get_uids->fetch_assoc();
 						foreach($arr_get_uids as $row_get_uids)
 						{
 							$f_topic_get_user_id = $row_get_uids['F_UID']; 

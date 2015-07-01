@@ -3,7 +3,7 @@
 ////////////////////////////////////
 //   UserCake Forum by DaVaR
 //   http://www.thedavar.net
-//   Version 1.0.1
+//   Version 1.0.0
 //   Forum for User Cake 2.0.2
 ////////////////////////////////////
 
@@ -69,9 +69,7 @@ function forumCleanOrderTitle(){
 		// Get the id of the last row to make sure nothing has been skipped
 		$query_order = $query." ORDER BY forum_order_title DESC LIMIT 1";
 		$result = $mysqli->query($query_order);
-		$arr = $result->fetch_all(MYSQLI_BOTH);
-		foreach($arr as $row)
-		{
+		while ($row = $result->fetch_assoc()) {
 			$last_row = $row['forum_order_title'];
 		}
 		$result->close();
@@ -107,9 +105,7 @@ function forumCleanOrderCat($forum_title){
 		// Get the id of the last row to make sure nothing has been skipped
 		$query_order = $query." ORDER BY forum_order_cat DESC LIMIT 1";
 		$result = $mysqli->query($query_order);
-		$arr = $result->fetch_all(MYSQLI_BOTH);
-		foreach($arr as $row)
-		{
+		while ($row = $result->fetch_assoc()) {
 			$last_row = $row['forum_order_cat'];
 		}
 		$result->close();
@@ -124,7 +120,7 @@ function forumCleanOrderCat($forum_title){
 
 			do {
 			 if ($res = $mysqli->store_result()) {
-			  var_dump($res->fetch_all(MYSQLI_ASSOC));
+			  var_dump($res->fetch_assoc());
 			  $res->free();
 			 }
 			} while ($mysqli->more_results() && $mysqli->next_result());
@@ -262,9 +258,7 @@ function forumMoveTitleOrder($fot_id){
 		// Get highest number listed in title order
 		$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' GROUP BY `forum_title` ORDER BY `forum_order_title` DESC LIMIT 1 ";
 		$result = $mysqli->query($query);
-		$arr = $result->fetch_all(MYSQLI_BOTH);
-		foreach($arr as $row)
-		{
+		while ($row = $result->fetch_assoc()) {
 			$f_order_title = $row['forum_order_title'];
 			//echo " - $fot_id of $f_order_title - ";
 			if($fot_id == 1)
@@ -449,9 +443,7 @@ function forumCreateNewTopic(){
 				// Get highest number listed in title order
 				$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' GROUP BY `forum_title` ORDER BY `forum_order_title` DESC LIMIT 1 ";
 				if($result = $mysqli->query($query)){
-					$arr = $result->fetch_all(MYSQLI_BOTH);
-					foreach($arr as $row)
-					{
+					while ($row = $result->fetch_assoc()) {
 						$f_order_title = $row['forum_order_title'];
 						$next_order_number = $f_order_title + 1;
 					}
@@ -627,9 +619,7 @@ function forumMoveCatOrder($fot_id,$f_title,$cat_order_id){
 		// Get highest number listed in cat order
 		$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' AND `forum_title`='$f_title' ORDER BY `forum_order_cat` DESC LIMIT 1";
 		$result = $mysqli->query($query);
-		$arr = $result->fetch_all(MYSQLI_BOTH);
-		foreach($arr as $row)
-		{
+		while ($row = $result->fetch_assoc()) {
 			$f_order_cat = $row['forum_order_cat'];
 			//echo " $fot_id - $cat_order_id of $f_order_cat - $f_title ";
 			if($cat_order_id == 1)
@@ -730,9 +720,7 @@ function forumCatNew($f_title){
 					// Get highest number listed in cat order
 					$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' AND `forum_title`='$forum_title' GROUP BY `forum_title` ORDER BY `forum_order_cat` DESC LIMIT 1 ";
 					$result = $mysqli->query($query);
-					$arr = $result->fetch_all(MYSQLI_BOTH);
-					foreach($arr as $row)
-					{
+					while ($row = $result->fetch_assoc()) {
 						$f_order_cat = $row['forum_order_cat'];
 						$next_order_number = $f_order_cat + 1;
 					}

@@ -2,7 +2,7 @@
 ////////////////////////////////////
 //   UserCake Forum by DaVaR
 //   http://www.thedavar.net
-//   Version 1.0.1
+//   Version 1.0.0
 //   Forum for User Cake 2.0.2
 ////////////////////////////////////
 
@@ -16,9 +16,7 @@
 	// Get all Categories from database
 	$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_cat`='$load_cat' LIMIT 1";
 	$result = $mysqli->query($query);
-	$arr = $result->fetch_all(MYSQLI_BOTH);
-	foreach($arr as $row)
-	{
+	while ($row = $result->fetch_assoc()) {
 		$f_cat = $row['forum_cat'];
 		$f_des = $row['forum_des'];
 		$f_id = $row['forum_id'];
@@ -130,9 +128,7 @@
 			$query_b = "${query} LIMIT $offset, $limit";
 			
 			if($result = $mysqli->query($query_b)){
-				$arr2 = $result->fetch_all(MYSQLI_BOTH);
-				foreach($arr2 as $row2)
-				{
+				while ($row2 = $result->fetch_assoc()) {
 					$f_p_id = $row2['forum_post_id'];
 					$f_p_id_cat = $row2['forum_id'];
 					$f_p_title = $row2['forum_title'];
@@ -147,6 +143,8 @@
 						echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='left'>";
 							//echo "($tstamp)"; // Test timestamp
 							echo "<strong><font size='2'>";
+							// Add text to blank Topic Titles
+							if(empty($f_p_title)){ $f_p_title = "Oops! Title is Missing for this Topic."; }
 							echo "<a href='${site_url_link}${site_forum_main}?1=display_topic&2=$f_p_id/' title='$f_p_title' ALT='$f_p_title'>$f_p_title</a>";
 							echo "</font></strong>";
 							echo "<br>";
@@ -172,9 +170,7 @@
 								// Get last reply date from database
 								$query33 = "SELECT * FROM ".$db_table_prefix."forum_posts_replys WHERE `fpr_post_id`='$f_p_id' ORDER BY id DESC LIMIT 1";
 								$result33 = $mysqli->query($query33);
-								$arr33 = $result33->fetch_all(MYSQLI_BOTH);
-								foreach($arr33 as $row33)
-								{
+								while ($row33 = $result33->fetch_assoc()) {
 									$rp_user_id2 = $row33['fpr_user_id'];
 									$rp_timestamp2 = $row33['fpr_timestamp'];
 									
