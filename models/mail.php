@@ -1,4 +1,10 @@
 <?php
+////////////////////////////////////
+//   UserCake Forum by DaVaR
+//   http://www.thedavar.net
+//   Version 1.0.1
+//   Forum for User Cake 2.0.2
+////////////////////////////////////
 
 global $websiteName, $websiteUrl, $emailAddress;
 

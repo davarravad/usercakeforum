@@ -2,7 +2,7 @@
 <pre>
 UserCake Forum by DaVaR
 http://www.thedavar.net
-Version 1.0.0
+Version 1.0.1
 
 UserCake compatable forum.  Easy to use and lightweight.  
 
