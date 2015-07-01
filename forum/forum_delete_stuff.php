@@ -15,7 +15,7 @@
 
 // Only Admins can delete stuff
 if(userCheckForumAdmin()){
-	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $websiteUrl, $site_forum_title;
+	global $mysqli, $db_table_prefix, $load_page_dir, $session_token_num, $websiteUrl, $site_forum_main;
 	//echo "You Are Admin and Can Delete Stuff";
 	// Get Data from Post Header to see what user is wanting to do
 	if(isset($_POST['DeleteTitle'])){ $DeleteTitle = $_POST['DeleteTitle']; }else{ $DeleteTitle = "FALSE"; }
@@ -24,6 +24,7 @@ if(userCheckForumAdmin()){
 	if(isset($_POST['DeleteCat'])){ $DeleteCat = $_POST['DeleteCat']; }else{ $DeleteCat = "FALSE"; }
 	if(isset($_POST['DeleteCatYes'])){ $DeleteCatYes = $_POST['DeleteCatYes']; }else{ $DeleteCatYes = "FALSE"; }
 	if(isset($_POST['forum_id_edit'])){ $forum_id_edit = $_POST['forum_id_edit']; }else{ $forum_id_edit = ""; }
+	if(isset($_POST['forum_cat'])){ $forum_cat = $_POST['forum_cat']; }else{ $forum_cat = ""; }
 	
 	// Title Delete Stuff
 	if($DeleteTitle == "TRUE"){
@@ -32,7 +33,7 @@ if(userCheckForumAdmin()){
 		//echo "<a href=='${site_url_link}?page=message&mes=delmesinbox&mid=$mid&yes=yes'>Yes?</a> / <a href='../'>No?</a>";
 		
 				echo "<center>";
-				echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_title}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+				echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}?1=forum_delete_stuff\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 					// Setup token in form // create multi sessions
 					if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
 					form_token();
@@ -42,7 +43,7 @@ if(userCheckForumAdmin()){
 				echo "</form>";
 				echo "</center>";
 				$taz_backz = "
-					<form method=\"post\" action=\"${websiteUrl}${site_forum_title}/\" onsubmit=\"submit.disabled = true; return true;\">
+					<form method=\"post\" action=\"${websiteUrl}${site_forum_main}\" onsubmit=\"submit.disabled = true; return true;\">
 						<input type=\"hidden\" name=\"mes\" value=\"inbox\">
 						<label title=\"Send\"><input type=\"submit\" value=\"NO\" class=\"sweet\" onClick=\"this.value = 'Please Wait....'\" /></label>
 					</form>
@@ -73,8 +74,8 @@ if(userCheckForumAdmin()){
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $websiteUrl, $site_forum_title;
-					$form_redir_link = "${websiteUrl}${site_forum_title}/";
+					global $websiteUrl, $site_forum_main;
+					$form_redir_link = "${websiteUrl}${site_forum_main}";
 					// Redirect member to their post
 					header("Location: $form_redir_link");
 					exit;
@@ -95,7 +96,7 @@ if(userCheckForumAdmin()){
 		//echo "<a href=='${site_url_link}?page=message&mes=delmesinbox&mid=$mid&yes=yes'>Yes?</a> / <a href='../'>No?</a>";
 		
 				echo "<center>";
-				echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_title}/forum_delete_stuff/\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
+				echo "<form enctype=\"multipart/form-data\" action=\"${websiteUrl}${site_forum_main}?1=forum_delete_stuff\" method=\"POST\" onsubmit=\"submitmystat.disabled = true; return true;\" class='sweetform' >";
 					// Setup token in form // create multi sessions
 					if(isset($session_token_num)){$session_token_num = $session_token_num + 1;}else{$session_token_num = "1";}
 					form_token();
@@ -105,7 +106,7 @@ if(userCheckForumAdmin()){
 				echo "</form>";
 				echo "</center>";
 				$taz_backz = "
-					<form method=\"post\" action=\"${websiteUrl}${site_forum_title}/\" onsubmit=\"submit.disabled = true; return true;\">
+					<form method=\"post\" action=\"${websiteUrl}${site_forum_main}\" onsubmit=\"submit.disabled = true; return true;\">
 						<input type=\"hidden\" name=\"mes\" value=\"inbox\">
 						<label title=\"Send\"><input type=\"submit\" value=\"NO\" class=\"sweet\" onClick=\"this.value = 'Please Wait....'\" /></label>
 					</form>
@@ -136,8 +137,8 @@ if(userCheckForumAdmin()){
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $websiteUrl, $site_forum_title;
-					$form_redir_link = "${websiteUrl}${site_forum_title}/";
+					global $websiteUrl, $site_forum_main;
+					$form_redir_link = "${websiteUrl}${site_forum_main}";
 					// Redirect member to their post
 					header("Location: $form_redir_link");
 					exit;
@@ -155,8 +156,8 @@ if(userCheckForumAdmin()){
 }else{
 	// If user is not a site admin then don't let them view this page
 	// Auto Redirect back to the forum
-	global $websiteUrl, $site_forum_title;
-	$form_redir_link = "${websiteUrl}${site_forum_title}/";
+	global $websiteUrl, $site_forum_main;
+	$form_redir_link = "${websiteUrl}${site_forum_main}";
 	// Redirect member to their post
 	header("Location: $form_redir_link");
 	exit;
