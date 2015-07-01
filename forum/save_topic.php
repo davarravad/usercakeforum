@@ -42,7 +42,7 @@ if(isUserLoggedIn())
 		// Format the text box for database
 		$forum_title = htmlspecialchars(strip_tags(addslashes($forum_title)));
 		
-		global $mysqli, $site_url_link, $userIdme, $site_forum_title, $db_table_prefix, $debug_website, $websiteName, $websiteUrl, $site_forum_main;
+		global $mysqli, $websiteUrl, $userIdme, $site_forum_title, $db_table_prefix, $debug_website, $websiteName, $websiteUrl, $site_forum_main;
 		
 		echo "save now - $forum_id - $forum_title - $forum_content - $insert_new_topic - $userIdme";
 		echo " (ID=$id) ";
@@ -63,7 +63,7 @@ if(isUserLoggedIn())
 				//echo $stmt->error;
 				
 				$stmt->close();	
-				$redir_link_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${newId}/";
+				$redir_link_url = "${websiteUrl}${site_forum_main}?1=display_topic&2=${newId}/";
 				
 				//Sends success message to session
 				//Shows user success when they are redirected
@@ -73,7 +73,7 @@ if(isUserLoggedIn())
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $site_url_link;
+					global $websiteUrl;
 					
 					// Redirect member to their post
 					header("Location: $redir_link_url");
@@ -93,7 +93,7 @@ if(isUserLoggedIn())
 				//echo $stmt->error;
 				
 				$stmt->close();	
-				$redir_link_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${forum_post_id}/";
+				$redir_link_url = "${websiteUrl}${site_forum_main}?1=display_topic&2=${forum_post_id}/";
 
 				//Sends success message to session
 				//Shows user success when they are redirected
@@ -103,7 +103,7 @@ if(isUserLoggedIn())
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $site_url_link;
+					global $websiteUrl;
 					
 					
 					// Redirect member to their post
@@ -146,7 +146,7 @@ if(isUserLoggedIn())
 				$success_msg = "You Have Successfully Created a Topic Reply!";
 				$_SESSION['success_msg'] = $success_msg;
 				
-				$redir_link_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${forum_post_id}$setup_pnum";
+				$redir_link_url = "${websiteUrl}${site_forum_main}?1=display_topic&2=${forum_post_id}$setup_pnum";
 				
 				//Update all current user's email sub status if any for this topic
 				//forum_posts database
@@ -299,7 +299,7 @@ if(isUserLoggedIn())
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $site_url_link;
+					global $websiteUrl;
 					
 					
 					// Redirect member to their post
@@ -327,7 +327,7 @@ if(isUserLoggedIn())
 				}
 				
 				$stmt->close();	
-				$redir_link_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${forum_post_id}/${setup_pnum}";
+				$redir_link_url = "${websiteUrl}${site_forum_main}?1=display_topic&2=${forum_post_id}/${setup_pnum}";
 				
 				//Sends success message to session
 				//Shows user success when they are redirected
@@ -337,7 +337,7 @@ if(isUserLoggedIn())
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $site_url_link;
+					global $websiteUrl;
 					
 					
 					// Redirect member to their post
@@ -364,7 +364,7 @@ if(isUserLoggedIn())
 				//echo $stmt->error;
 				$stmt->close();	
 				
-				$redir_link_url = "${site_url_link}${site_forum_main}?1=display_topic&2=${forum_post_id}/$setup_pnum";
+				$redir_link_url = "${websiteUrl}${site_forum_main}?1=display_topic&2=${forum_post_id}/$setup_pnum";
 				
 				//Sends success message to session
 				//Shows user success when they are redirected
@@ -374,7 +374,7 @@ if(isUserLoggedIn())
 				//Disables auto refresh for debug stuff
 				if($debug_website == 'TRUE'){ echo "<br> - DEBUG SITE ON - <BR>"; }else{
 					//Redirects the user
-					global $site_url_link;
+					global $websiteUrl;
 					
 					
 					// Redirect member to their post

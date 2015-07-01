@@ -35,6 +35,31 @@ function get_user_name_2($ID02){
 	unset($print_user_display_name, $print_user_name);
 }
 
+// Gets user_name or display_name from $ID02
+// Set to send to var
+function get_user_email($ID02){
+
+	global $mysqli,$db_table_prefix;
+	
+	$stmt = $mysqli->prepare("SELECT 
+		email
+		FROM ".$db_table_prefix."users WHERE id=?");
+
+	$stmt->bind_param("i", $ID02);
+	$stmt->execute();
+
+	$stmt->bind_result($print_user_email);
+	
+	$stmt->fetch();
+	$stmt->close();
+	
+	// Displays users user_name if display_name is not set
+	if(!empty($print_user_email)){
+		return $print_user_email;
+	}
+	unset($print_user_email);
+}
+
 // Total Topics Display Functions
 function total_topics_display($forum_id){
 	global $mysqli, $site_url_link, $site_forum_title, $db_table_prefix;

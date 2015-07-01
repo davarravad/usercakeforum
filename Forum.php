@@ -7,6 +7,7 @@
 ////////////////////////////////////
 
 // Main file for user cake forum
+ob_start();
 
 // Debug Setting TRUE=ON FALSE=OFF
 $debug_website = "FALSE";
