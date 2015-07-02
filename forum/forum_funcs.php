@@ -420,4 +420,25 @@ function get_up_info_mem_status($get_info_id){
 
 }
 
+// Formatted error message.
+
+
+function err_message($str)
+{
+	global $websiteName;
+	//Setup the header of err_message
+	$err_m_head = "<table border='0' width='100%' align='center' cellspacing='0' cellpadding='0'>
+					<tr><td class='hr2'>
+						$websiteName Error Message
+					</td></tr><tr><td class='content78'>
+						<font color='#990000'><strong>";
+
+	//Setup the footer of err_message
+	$err_m_foot = "</strong></font>
+					</td></tr>
+					</table><br>";
+	echo "$err_m_head $str $err_m_foot";
+}
+
+
 ?>
