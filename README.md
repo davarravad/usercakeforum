@@ -26,7 +26,7 @@ Note: Make sure to change the table prefix uc_ to match your database settings.
 -- Table structure for table `uc_forum_cat`
 --
 
-REATE TABLE IF NOT EXISTS `uc_forum_cat` (
+CREATE TABLE IF NOT EXISTS `uc_forum_cat` (
   `forum_id` int(20) NOT NULL AUTO_INCREMENT COMMENT 'id of form thingy',
   `forum_name` varchar(255) DEFAULT NULL COMMENT 'name of the full forum',
   `forum_title` varchar(255) DEFAULT NULL COMMENT 'title of the forum sections',
