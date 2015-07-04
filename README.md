@@ -89,6 +89,10 @@ CREATE TABLE IF NOT EXISTS `uc_views` (
   PRIMARY KEY (`vid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+Forum Recent Posts Display
+You can include the forum_recent.php file anywhere on your site if you like.
+require("forum/forum_recent.php");
+It is not styled, but you can copy the css from the Forum.php file.
 
 Enjoy!
 </pre>
