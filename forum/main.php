@@ -25,12 +25,12 @@
 	forumCleanOrderTitle();
 	
 	// Get all Categories from database
-	$query = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' GROUP BY forum_title ORDER BY `".$db_table_prefix."forum_cat`.`forum_order_title` ASC ";
-	$result = $mysqli->query($query);
-	while ($row = $result->fetch_assoc()) {
-		$f_title = $row['forum_title'];
-		$f_id = $row['forum_id'];
-		$f_order_title = $row['forum_order_title'];
+	$query_title = "SELECT * FROM ".$db_table_prefix."forum_cat WHERE `forum_name`='$stc_page_sel' GROUP BY forum_title ORDER BY `".$db_table_prefix."forum_cat`.`forum_order_title` ASC ";
+	$result_title = $mysqli->query($query_title);
+	while ($row_title = $result_title->fetch_assoc()) {
+		$f_title = $row_title['forum_title'];
+		$f_id = $row_title['forum_id'];
+		$f_order_title = $row_title['forum_order_title'];
 		
 		// If Admin or mod is logged in check to 
 		// see if categories are in order.
