@@ -49,10 +49,7 @@ CREATE TABLE IF NOT EXISTS `uc_forum_posts` (
   `forum_title` varchar(255) NOT NULL,
   `forum_content` text NOT NULL,
   `forum_edit_date` varchar(20) DEFAULT NULL,
-  `forum_year` varchar(255) NOT NULL,
-  `forum_make` varchar(255) NOT NULL,
-  `forum_model` varchar(255) NOT NULL,
-  `forum_engine` varchar(255) NOT NULL,
+  `forum_status` int(11) NOT NULL DEFAULT '1',
   `subcribe_email` varchar(10) NOT NULL,
   `forum_timestamp` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`forum_post_id`)

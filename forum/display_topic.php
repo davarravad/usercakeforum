@@ -55,10 +55,7 @@
 		$f_p_edit_date = $row23['forum_edit_date'];
 		$f_p_timestamp = $row23['forum_timestamp'];
 		$f_p_user_id = $row23['forum_user_id'];
-		$f_p_year = $row23['forum_year'];
-		$f_p_make = $row23['forum_make'];
-		$f_p_model = $row23['forum_model'];
-		$f_p_engine = $row23['forum_engine'];
+		$f_p_status = $row23['forum_status'];
 		$f_p_user_name = get_user_name_2($f_p_user_id);
 		
 		$f_p_title = stripslashes($f_p_title);
@@ -102,6 +99,8 @@
 			echo "<a href='${site_url_link}${site_forum_main}'>Forum Home</a> / ";
 			echo "<a href='${site_url_link}${site_forum_main}?1=forum_display&2=$f_cat&3=$f_id/'>$f_cat</a> / ";
 			echo "<a href=''>$f_p_title</a>";
+			// Display Locked Message if Topic has been locked by admin
+			forumTopicStatus('display_note', $f_p_status, NULL);
 		echo "</td></tr></table>";
 		
 		echo "<table width='100%' border='0' cellspacing='0' cellpadding='0'><tr><td class=forum_title_head colspan=3>";
@@ -505,8 +504,14 @@
 		
 		} // End of sql resutls check
 		
-		// Display reply textarea
-		require("forum/reply_topic.php");
+		// Check to see if Topic is locked. 
+		// If Locked then disable the reply_topic
+		if($f_p_status != "2"){
+			// Display reply textarea
+			require("forum/reply_topic.php");
+		}else{
+			echo "This Topic has been locked!<Br><br>";
+		}
 		
 		// Display message that tells current user if they are subscribed to the current topic
 		if($usr_email_subcribe == "NO"){
@@ -544,6 +549,9 @@
 		$view_owner_userid = "$userIdme";  //Post owners userid
 		require "models/views.php";
 		//End View 
+		
+		// Check to see if admin would like to lock or unlock this topic
+		forumTopicStatus('admin_topic', $f_p_status, $f_p_id);
 		
 		// Run Footer of page func
 		style_footer_content();	

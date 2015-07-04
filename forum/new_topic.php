@@ -37,10 +37,6 @@ if(isUserLoggedIn())
 			if(isset($_POST['edit_forum_reply'])){ $edit_forum_reply = $_POST['edit_forum_reply']; }else{ $edit_forum_reply = ""; }
 			if(isset($_POST['edit_forum_topic'])){ $edit_forum_topic = $_POST['edit_forum_topic']; }else{ $edit_forum_topic = ""; }
 			if(isset($_POST['pnum'])){ $pnum = $_POST['pnum']; }else{ $pnum = ""; }
-			if(isset($_POST['forum_year'])){ $forum_year = $_POST['forum_year']; }else{ $forum_year = ""; }
-			if(isset($_POST['forum_make'])){ $forum_make = $_POST['forum_make']; }else{ $forum_make = ""; }
-			if(isset($_POST['forum_model'])){ $forum_model = $_POST['forum_model']; }else{ $forum_model = ""; }
-			if(isset($_POST['forum_engine'])){ $forum_engine = $_POST['forum_engine']; }else{ $forum_engine = ""; }
 			
 			global $mysqli, $site_url_link, $site_forum_title, $db_table_prefix;
 			global $session_token_num;
@@ -100,10 +96,6 @@ if(isUserLoggedIn())
 						$owner_uid = $row3['forum_user_id'];
 						$forum_title = $row3['forum_title'];
 						$forum_content = $row3['forum_content'];
-						$forum_year = $row3['forum_year'];
-						$forum_make = $row3['forum_make'];
-						$forum_model = $row3['forum_model'];
-						$forum_engine = $row3['forum_engine'];
 					}
 					// Check to see if user owns the content they are trying to edit
 					global $site_url_link, $site_forum_title, $userIdme;

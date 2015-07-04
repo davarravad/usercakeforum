@@ -22,10 +22,6 @@ if(isUserLoggedIn())
 	if(isset($_POST['edit_forum_reply'])){ $edit_forum_reply = $_POST['edit_forum_reply']; }else{ $edit_forum_reply = ""; }
 	if(isset($_POST['edit_forum_topic'])){ $edit_forum_topic = $_POST['edit_forum_topic']; }else{ $edit_forum_topic = ""; }
 	if(isset($_POST['pnum'])){ $pnum = $_POST['pnum']; }else{ $pnum = ""; }
-	if(isset($_POST['forum_year'])){ $forum_year = $_POST['forum_year']; }else{ $forum_year = ""; }
-	if(isset($_POST['make'])){ $forum_make = $_POST['make']; }else{ $forum_make = ""; }
-	if(isset($_POST['model'])){ $forum_model = $_POST['model']; }else{ $forum_model = ""; }
-	if(isset($_POST['forum_engine'])){ $forum_engine = $_POST['forum_engine']; }else{ $forum_engine = ""; }
 	if(isset($_POST['subcribe_email'])){ $subcribe_email = $_POST['subcribe_email']; }else{ $subcribe_email = "NO"; }
 	if(isset($_POST['unsubscribe_topic'])){ $unsubscribe_topic = $_POST['unsubscribe_topic']; }else{ $unsubscribe_topic = ""; }
 	
@@ -55,8 +51,8 @@ if(isUserLoggedIn())
 		// Create new topic
 		// Save the information to the database
 		if($insert_new_topic == "TRUE"){
-				$stmt = $mysqli->prepare("INSERT INTO ".$db_table_prefix."forum_posts(forum_id, forum_user_id, forum_title, forum_content, forum_timestamp, forum_year, forum_make, forum_model, forum_engine, subcribe_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-				$stmt->bind_param("iissssssss", $forum_id, $userIdme, $forum_title, $forum_content, $cur_date_time, $forum_year, $forum_make, $forum_model, $forum_engine, $subcribe_email);
+				$stmt = $mysqli->prepare("INSERT INTO ".$db_table_prefix."forum_posts(forum_id, forum_user_id, forum_title, forum_content, forum_timestamp, subcribe_email) VALUES (?, ?, ?, ?, ?, ?)");
+				$stmt->bind_param("iissss", $forum_id, $userIdme, $forum_title, $forum_content, $cur_date_time, $subcribe_email);
 				$stmt->execute();
 				$newId = $stmt->insert_id;
 				
@@ -85,8 +81,8 @@ if(isUserLoggedIn())
 		// Edit topic
 		// Save the information to the database
 		if($edit_forum_topic == "TRUE"){		
-				$stmt = $mysqli->prepare("UPDATE ".$db_table_prefix."forum_posts SET forum_title=?, forum_content=?, forum_year=?, forum_make=?, forum_model=?, forum_engine=?, forum_edit_date=? WHERE forum_post_id=? LIMIT 1");
-				$stmt->bind_param("sssssssi", $forum_title, $forum_content, $forum_year, $forum_make, $forum_model, $forum_engine, $cur_date_time, $id);
+				$stmt = $mysqli->prepare("UPDATE ".$db_table_prefix."forum_posts SET forum_title=?, forum_content=?, forum_edit_date=? WHERE forum_post_id=? LIMIT 1");
+				$stmt->bind_param("sssi", $forum_title, $forum_content, $cur_date_time, $id);
 				$stmt->execute();
 				$newId = $stmt->insert_id;
 				
