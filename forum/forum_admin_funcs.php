@@ -35,7 +35,7 @@ function userCheckForumMod(){
 	{
 		// Moderator users permissions id is 4
 		global $loggedInUser;
-		if ($loggedInUser->checkPermission(array(4)) == true){
+		if ($loggedInUser->checkPermission(array(3,4)) == true){
 			// User is Mod
 			return 1;
 		}

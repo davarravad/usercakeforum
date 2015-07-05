@@ -126,12 +126,6 @@
 			echo "</td></tr></table>";
 		echo "</td><td class='forum_title_body' valign='top' width=''>";
 		
-				// If year make model engine are set show them
-				if(!empty($f_p_year) && !empty($f_p_make) && !empty($f_p_model) && !empty($f_p_engine)){
-					echo "<strong>$f_p_year - $f_p_make - $f_p_model - $f_p_engine</strong>";
-					echo "<hr>";
-				}
-		
 				//Format the content with bbcode
 				require_once('models/bbParser.php');
 				$parser = new bbParser();
@@ -156,7 +150,7 @@
 				// If user owns this content show forum buttons for edit and delete
 				if(isUserLoggedIn()){
 					global $userIdme;
-					if($f_p_user_id == $userIdme){
+					if($f_p_user_id == $userIdme || userCheckForumAdmin() || userCheckForumMod()){
 
 						echo "</td></tr><tr><td align='center' valign='bottom'><br>";
 					
@@ -385,7 +379,7 @@
 							// If user owns this content show forum buttons for edit and delete
 							if(isUserLoggedIn()){
 								global $userIdme;
-								if($rf_p_user_id == $userIdme){
+								if($rf_p_user_id == $userIdme || userCheckForumAdmin() || userCheckForumMod()){
 
 									echo "</td></tr><tr><td align='center' valign='bottom'><br>";
 								
