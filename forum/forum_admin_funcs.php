@@ -58,7 +58,7 @@ function forumCleanOrderTitle(){
 	if(userCheckForumAdmin() || userCheckForumMod()){
 		global $mysqli, $db_table_prefix, $session_token_num, $debug_website;
 		// Check to see what the total number of rows in table are
-		$query = "SELECT forum_order_title FROM uc_forum_cat";
+		$query = "SELECT forum_order_title FROM ".$db_table_prefix."forum_cat";
 		$query_group = $query." GROUP BY forum_title";
 		if ($stmt = $mysqli->prepare($query_group)) {
 			$stmt->execute();
@@ -95,7 +95,7 @@ function forumCleanOrderCat($forum_title){
 	if(userCheckForumAdmin() || userCheckForumMod()){
 		global $mysqli, $db_table_prefix, $session_token_num, $debug_website;
 		// Check to see what the total number of rows in table are
-		$query = "SELECT forum_order_cat FROM uc_forum_cat WHERE forum_title = '$forum_title'";
+		$query = "SELECT forum_order_cat FROM ".$db_table_prefix."forum_cat WHERE forum_title = '$forum_title'";
 		if ($stmt = $mysqli->prepare($query)) {
 			$stmt->execute();
 			$stmt->store_result();
@@ -114,7 +114,7 @@ function forumCleanOrderCat($forum_title){
 		if($total_rows != $last_row){
 			echo "<br><br>Please Wait While Forum Is Cleaned Up!";
 			$query = "SET @count := 0;";
-			$query .= "UPDATE `uc_forum_cat` SET `uc_forum_cat`.`forum_order_cat` = @count := (@count + 1) WHERE forum_title = '$forum_title' ORDER BY forum_order_cat";
+			$query .= "UPDATE `".$db_table_prefix."forum_cat` SET `".$db_table_prefix."forum_cat`.`forum_order_cat` = @count := (@count + 1) WHERE forum_title = '$forum_title' ORDER BY forum_order_cat";
 			if (!$mysqli->multi_query($query))
 			 echo "Multi query failed: (" . $mysqli->errno . ") " . $mysqli->error;
 
