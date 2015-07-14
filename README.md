@@ -1,7 +1,7 @@
 # usercakeforum
 <pre>
 UserCake Forum by DaVaR
-http://www.thedavar.net
+http://www.userapplepie.com/
 Version 1.0.3
 
 UserCake compatable forum.  Easy to use and lightweight.  
@@ -10,7 +10,7 @@ Compatable with User Cake 2.0.2
 http://www.usercake.com
 
 Designed by DaVaR
-http://www.thedavar.net
+http://www.userapplepie.com/
 
 Thanks to any and all contrabutions.
 
